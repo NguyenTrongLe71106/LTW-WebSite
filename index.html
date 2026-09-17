@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="VietTour - Đặt tour du lịch trọn gói trong nước, lịch trình rõ ràng, giá minh bạch.">
+  <title>VietTour - Đặt Tour Du Lịch Trọn Gói</title>
+
+  <!-- ===== Bootstrap 5 CSS (CDN) ===== -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- ===== Bootstrap Icons (CDN) ===== -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <!-- ===== Google Fonts ===== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- ===== CSS dùng chung của website ===== -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- =======================================================
+     HEADER / NAVBAR  (DÙNG CHUNG CHO CẢ 5 TRANG - COPY Y NGUYÊN)
+     ======================================================= -->
+<nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top py-3">
+  <div class="container">
+    <!-- Logo -->
+    <a class="navbar-brand fw-bold fs-4" href="index.html">
+      <i class="bi bi-airplane-engines-fill text-vt-blue me-1"></i>Viet<span>Tour</span>
+    </a>
+
+    <!-- Nút hamburger cho điện thoại -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+            aria-controls="mainNavbar" aria-expanded="false" aria-label="Mở menu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Menu chính - liên kết đúng 5 file HTML -->
+    <div class="collapse navbar-collapse" id="mainNavbar">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-lg-2">
+        <li class="nav-item"><a class="nav-link active" href="index.html">Trang chủ</a></li>
+        <li class="nav-item"><a class="nav-link" href="tours.html">Danh sách tour</a></li>
+        <li class="nav-item"><a class="nav-link" href="tour-detail.html">Chi tiết tour</a></li>
+        <li class="nav-item"><a class="nav-link" href="blog.html">Cẩm nang du lịch</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Liên hệ</a></li>
+      </ul>
+      <div class="d-flex gap-2 ms-lg-4 mt-3 mt-lg-0">
+        <a href="#" class="btn btn-outline-primary btn-sm px-3">Đăng nhập</a>
+        <a href="#" class="btn btn-vt-primary btn-sm px-3">Đăng ký</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- =======================================================
+     BANNER SLIDE - BOOTSTRAP CAROUSEL
+     ======================================================= -->
+<section id="heroCarousel" class="carousel slide hero-carousel" data-bs-ride="carousel">
+  <!-- Chấm tròn chỉ số slide -->
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+
+  <div class="carousel-inner">
+    <!-- Slide 1 -->
+    <div class="carousel-item active" style="background-image:url('https://picsum.photos/seed/halongbay/1600/700');">
+      <div class="carousel-caption">
+        <p class="badge bg-success mb-2">Tour trong nước</p>
+        <h2>Vịnh Hạ Long - Di sản thiên nhiên thế giới</h2>
+        <p class="fs-5 d-none d-md-block">Du thuyền 5 sao, chèo kayak và ngủ đêm trên vịnh.</p>
+        <a href="tours.html" class="btn btn-vt-green btn-lg mt-2">Xem tour Hạ Long</a>
+      </div>
+    </div>
+    <!-- Slide 2 -->
+    <div class="carousel-item" style="background-image:url('https://picsum.photos/seed/danang/1600/700');">
+      <div class="carousel-caption">
+        <p class="badge bg-success mb-2">Bán chạy nhất</p>
+        <h2>Đà Nẵng - Hội An - Bà Nà Hills</h2>
+        <p class="fs-5 d-none d-md-block">Cầu Vàng, phố cổ về đêm và bãi biển Mỹ Khê.</p>
+        <a href="tours.html" class="btn btn-vt-green btn-lg mt-2">Khám phá ngay</a>
+      </div>
+    </div>
+    <!-- Slide 3 -->
+    <div class="carousel-item" style="background-image:url('https://picsum.photos/seed/dalat/1600/700');">
+      <div class="carousel-caption">
+        <p class="badge bg-success mb-2">Giảm đến 25%</p>
+        <h2>Đà Lạt - Thành phố ngàn hoa</h2>
+        <p class="fs-5 d-none d-md-block">Săn mây Cầu Đất, cắm trại hồ Tuyền Lâm.</p>
+        <a href="tours.html" class="btn btn-vt-green btn-lg mt-2">Đặt tour Đà Lạt</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Nút chuyển slide -->
+  <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Trước</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Sau</span>
+  </button>
+</section>
+
+<!-- =======================================================
+     THANH TÌM KIẾM TOUR NHANH
+     ======================================================= -->
+<div class="container">
+  <div class="search-box">
+    <form class="row g-3 align-items-end" id="quickSearchForm" novalidate>
+      <div class="col-lg-4 col-md-6">
+        <label for="keyword" class="form-label">Bạn muốn đi đâu?</label>
+        <div class="input-group">
+          <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
+          <input type="text" class="form-control" id="keyword" placeholder="Nhập tên tour hoặc điểm đến">
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6">
+        <label for="location" class="form-label">Điểm đến</label>
+        <select class="form-select" id="location">
+          <option value="">Tất cả điểm đến</option>
+          <option>Miền Bắc</option>
+          <option>Miền Trung</option>
+          <option>Miền Nam</option>
+        </select>
+      </div>
+
+      <div class="col-lg-3 col-md-6">
+        <label for="startDate" class="form-label">Ngày khởi hành</label>
+        <input type="date" class="form-control" id="startDate">
+      </div>
+
+      <div class="col-lg-2 col-md-6 d-grid">
+        <button type="submit" class="btn btn-vt-primary py-2">Tìm tour</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- =======================================================
+     ĐIỂM ĐẾN PHỔ BIẾN
+     ======================================================= -->
+<section class="py-5 mt-4">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-end mb-4">
+      <div>
+        <h2 class="mb-1">Điểm đến phổ biến</h2>
+        <p class="text-secondary mb-0">Những nơi khách hàng VietTour đặt nhiều nhất trong tháng.</p>
+      </div>
+      <a href="tours.html" class="btn btn-link text-vt-blue d-none d-md-inline">Xem tất cả</a>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-lg-3 col-sm-6">
+        <a href="tours.html" class="destination-card d-block">
+          <img src="https://picsum.photos/seed/sapa/600/500" alt="Sa Pa">
+          <div class="overlay">
+            <div>
+              <h5 class="text-white mb-0">Sa Pa</h5>
+              <small>12 tour</small>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <a href="tours.html" class="destination-card d-block">
+          <img src="https://picsum.photos/seed/hue/600/500" alt="Huế">
+          <div class="overlay">
+            <div>
+              <h5 class="text-white mb-0">Huế</h5>
+              <small>9 tour</small>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <a href="tours.html" class="destination-card d-block">
+          <img src="https://picsum.photos/seed/phuquoc/600/500" alt="Phú Quốc">
+          <div class="overlay">
+            <div>
+              <h5 class="text-white mb-0">Phú Quốc</h5>
+              <small>15 tour</small>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <a href="tours.html" class="destination-card d-block">
+          <img src="https://picsum.photos/seed/mientay/600/500" alt="Miền Tây">
+          <div class="overlay">
+            <div>
+              <h5 class="text-white mb-0">Miền Tây</h5>
+              <small>7 tour</small>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =======================================================
+     TOUR NỔI BẬT / KHUYẾN MÃI  (DANH SÁCH CARD)
+     ======================================================= -->
+<section class="py-5 bg-light-blue">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="mb-2">Tour nổi bật &amp; khuyến mãi</h2>
+      <p class="text-secondary mb-0">Giá đã bao gồm vé máy bay, khách sạn, ăn uống và hướng dẫn viên.</p>
+    </div>
+
+    <div class="row g-4">
+
+      <!-- ---- Card tour 1 ---- -->
+      <div class="col-lg-4 col-md-6">
+        <div class="card tour-card">
+          <div class="position-relative">
+            <img src="https://picsum.photos/seed/tour1/600/420" class="card-img-top" alt="Tour Hạ Long">
+            <span class="badge-sale">-20%</span>
+          </div>
+          <div class="card-body d-flex flex-column">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <small class="text-secondary"><i class="bi bi-geo-alt-fill text-vt-green"></i> Quảng Ninh</small>
+              <small class="text-warning"><i class="bi bi-star-fill"></i> 4.8</small>
+            </div>
+            <h5 class="card-title">Hà Nội - Vịnh Hạ Long - Đảo Titop</h5>
+            <p class="card-text text-secondary small">
+              Ngủ đêm trên du thuyền, chèo kayak khám phá hang Luồn và ăn hải sản tươi.
+            </p>
+            <ul class="list-unstyled small text-secondary mb-3">
+              <li><i class="bi bi-clock me-1 text-vt-blue"></i> 3 ngày 2 đêm</li>
+              <li><i class="bi bi-people me-1 text-vt-blue"></i> Còn 12 chỗ</li>
+            </ul>
+            <div class="mt-auto d-flex justify-content-between align-items-center">
+              <div>
+                <span class="price-old">4.500.000đ</span><br>
+                <span class="price-new">3.600.000đ</span>
+              </div>
+              <a href="tour-detail.html" class="btn btn-vt-primary btn-sm px-3">Xem chi tiết</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ---- Card tour 2 ---- -->
+      <div class="col-lg-4 col-md-6">
+        <div class="card tour-card">
+          <div class="position-relative">
+            <img src="https://picsum.photos/seed/tour2/600/420" class="card-img-top" alt="Tour Đà Nẵng">
+            <span class="badge-sale">Hot</span>
+          </div>
+          <div class="card-body d-flex flex-column">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <small class="text-secondary"><i class="bi bi-geo-alt-fill text-vt-green"></i> Đà Nẵng</small>
+              <small class="text-warning"><i class="bi bi-star-fill"></i> 4.9</small>
+            </div>
+            <h5 class="card-title">Đà Nẵng - Hội An - Bà Nà Hills</h5>
+            <p class="card-text text-secondary small">
+              Cầu Vàng, Cầu Rồng phun lửa, phố cổ Hội An và thả đèn hoa đăng sông Hoài.
+            </p>
+            <ul class="list-unstyled small text-secondary mb-3">
+              <li><i class="bi bi-clock me-1 text-vt-blue"></i> 4 ngày 3 đêm</li>
+              <li><i class="bi bi-people me-1 text-vt-blue"></i> Còn 8 chỗ</li>
+            </ul>
+            <div class="mt-auto d-flex justify-content-between align-items-center">
+              <div>
+                <span class="price-old">6.200.000đ</span><br>
+                <span class="price-new">5.450.000đ</span>
+              </div>
+              <a href="tour-detail.html" class="btn btn-vt-primary btn-sm px-3">Xem chi tiết</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ---- Card tour 3 ---- -->
+      <div class="col-lg-4 col-md-6">
+        <div class="card tour-card">
+          <div class="position-relative">
+            <img src="https://picsum.photos/seed/tour3/600/420" class="card-img-top" alt="Tour Đà Lạt">
+            <span class="badge-sale">-25%</span>
+          </div>
+          <div class="card-body d-flex flex-column">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <small class="text-secondary"><i class="bi bi-geo-alt-fill text-vt-green"></i> Lâm Đồng</small>
+              <small class="text-warning"><i class="bi bi-star-fill"></i> 4.7</small>
+            </div>
+            <h5 class="card-title">Đà Lạt - Săn mây Cầu Đất</h5>
+            <p class="card-text text-secondary small">
+              Đón bình minh trên đồi chè, tham quan Thiền viện Trúc Lâm và chợ đêm Đà Lạt.
+            </p>
+            <ul class="list-unstyled small text-secondary mb-3">
+              <li><i class="bi bi-clock me-1 text-vt-blue"></i> 3 ngày 3 đêm</li>
+              <li><i class="bi bi-people me-1 text-vt-blue"></i> Còn 20 chỗ</li>
+            </ul>
+            <div class="mt-auto d-flex justify-content-between align-items-center">
+              <div>
+                <span class="price-old">3.900.000đ</span><br>
+                <span class="price-new">2.925.000đ</span>
+              </div>
+              <a href="tour-detail.html" class="btn btn-vt-primary btn-sm px-3">Xem chi tiết</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ---- Card tour 4 ---- -->
+      <div class="col-lg-4 col-md-6">
+        <div class="card tour-card">
+          <div class="position-relative">
+            <img src="https://picsum.photos/seed/tour4/600/420" class="card-img-top" alt="Tour Phú Quốc">
+            <span class="badge-sale">-15%</span>
+          </div>
+          <div class="card-body d-flex flex-column">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <small class="text-secondary"><i class="bi bi-geo-alt-fill text-vt-green"></i> Kiên Giang</small>
+              <small class="text-warning"><i class="bi bi-star-fill"></i> 4.6</small>
+            </div>
+            <h5 class="card-title">Phú Quốc - Hòn Thơm - Grand World</h5>
+            <p class="card-text text-secondary small">
+              Cáp treo vượt biển dài nhất thế giới, lặn ngắm san hô và show Tinh hoa Việt Nam.
+            </p>
+            <ul class="list-unstyled small text-secondary mb-3">
+              <li><i class="bi bi-clock me-1 text-vt-blue"></i> 4 ngày 3 đêm</li>
+              <li><i class="bi bi-people me-1 text-vt-blue"></i> Còn 6 chỗ</li>
+            </ul>
+            <div class="mt-auto d-flex justify-content-between align-items-center">
+              <div>
+                <span class="price-old">7.800.000đ</span><br>
+                <span class="price-new">6.630.000đ</span>
+              </div>
+              <a href="tour-detail.html" class="btn btn-vt-primary btn-sm px-3">Xem chi tiết</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ---- Card tour 5 ---- -->
+      <div class="col-lg-4 col-md-6">
+        <div class="card tour-card">
+          <div class="position-relative">
+            <img src="https://picsum.photos/seed/tour5/600/420" class="card-img-top" alt="Tour Sa Pa">
+            <span class="badge-sale">Mới</span>
+          </div>
+          <div class="card-body d-flex flex-column">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <small class="text-secondary"><i class="bi bi-geo-alt-fill text-vt-green"></i> Lào Cai</small>
+              <small class="text-warning"><i class="bi bi-star-fill"></i> 4.5</small>
+            </div>
+            <h5 class="card-title">Sa Pa - Fansipan - Bản Cát Cát</h5>
+            <p class="card-text text-secondary small">
+              Chinh phục nóc nhà Đông Dương bằng cáp treo, trải nghiệm chợ phiên vùng cao.
+            </p>
+            <ul class="list-unstyled small text-secondary mb-3">
+              <li><i class="bi bi-clock me-1 text-vt-blue"></i> 3 ngày 2 đêm</li>
+              <li><i class="bi bi-people me-1 text-vt-blue"></i> Còn 15 chỗ</li>
+            </ul>
+            <div class="mt-auto d-flex justify-content-between align-items-center">
+              <div>
+                <span class="price-old">4.200.000đ</span><br>
+                <span class="price-new">3.780.000đ</span>
+              </div>
+              <a href="tour-detail.html" class="btn btn-vt-primary btn-sm px-3">Xem chi tiết</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ---- Card tour 6 ---- -->
+      <div class="col-lg-4 col-md-6">
+        <div class="card tour-card">
+          <div class="position-relative">
+            <img src="https://picsum.photos/seed/tour6/600/420" class="card-img-top" alt="Tour Miền Tây">
+            <span class="badge-sale">-10%</span>
+          </div>
+          <div class="card-body d-flex flex-column">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <small class="text-secondary"><i class="bi bi-geo-alt-fill text-vt-green"></i> Cần Thơ</small>
+              <small class="text-warning"><i class="bi bi-star-fill"></i> 4.4</small>
+            </div>
+            <h5 class="card-title">Miền Tây - Chợ nổi Cái Răng</h5>
+            <p class="card-text text-secondary small">
+              Đi xuồng ba lá trong rừng dừa, nghe đờn ca tài tử và thưởng thức trái cây miệt vườn.
+            </p>
+            <ul class="list-unstyled small text-secondary mb-3">
+              <li><i class="bi bi-clock me-1 text-vt-blue"></i> 2 ngày 1 đêm</li>
+              <li><i class="bi bi-people me-1 text-vt-blue"></i> Còn 25 chỗ</li>
+            </ul>
+            <div class="mt-auto d-flex justify-content-between align-items-center">
+              <div>
+                <span class="price-old">1.990.000đ</span><br>
+                <span class="price-new">1.791.000đ</span>
+              </div>
+              <a href="tour-detail.html" class="btn btn-vt-primary btn-sm px-3">Xem chi tiết</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /row -->
+
+    <div class="text-center mt-5">
+      <a href="tours.html" class="btn btn-outline-primary btn-lg px-4">Xem tất cả tour</a>
+    </div>
+  </div>
+</section>
+
+<!-- =======================================================
+     CAM KẾT DỊCH VỤ
+     ======================================================= -->
+<section class="py-5">
+  <div class="container">
+    <div class="row g-4 text-center">
+      <div class="col-md-3 col-6">
+        <div class="feature-icon"><i class="bi bi-cash-coin"></i></div>
+        <h5 class="fs-6">Giá trọn gói</h5>
+        <p class="text-secondary small mb-0">Không phát sinh chi phí ẩn.</p>
+      </div>
+      <div class="col-md-3 col-6">
+        <div class="feature-icon"><i class="bi bi-calendar-check"></i></div>
+        <h5 class="fs-6">Đặt tour trong 2 phút</h5>
+        <p class="text-secondary small mb-0">Xác nhận qua email tự động.</p>
+      </div>
+      <div class="col-md-3 col-6">
+        <div class="feature-icon"><i class="bi bi-shield-check"></i></div>
+        <h5 class="fs-6">Thanh toán an toàn</h5>
+        <p class="text-secondary small mb-0">Hỗ trợ nhiều phương thức.</p>
+      </div>
+      <div class="col-md-3 col-6">
+        <div class="feature-icon"><i class="bi bi-headset"></i></div>
+        <h5 class="fs-6">Hỗ trợ 24/7</h5>
+        <p class="text-secondary small mb-0">Tư vấn viên trực cả cuối tuần.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =======================================================
+     BÀI VIẾT CẨM NANG MỚI NHẤT (LIÊN KẾT SANG blog.html)
+     ======================================================= -->
+<section class="py-5 bg-light-blue">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-end mb-4">
+      <h2 class="mb-0">Cẩm nang du lịch</h2>
+      <a href="blog.html" class="btn btn-link text-vt-blue">Xem tất cả bài viết</a>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-lg-4 col-md-6">
+        <div class="card tour-card">
+          <img src="https://picsum.photos/seed/blog1/600/400" class="card-img-top" alt="Kinh nghiệm du lịch Hạ Long">
+          <div class="card-body">
+            <small class="text-secondary">12/09/2026</small>
+            <h5 class="card-title mt-1 fs-6">Kinh nghiệm ngủ đêm trên du thuyền Hạ Long</h5>
+            <p class="card-text text-secondary small">Chọn hạng phòng, mang gì theo và những lưu ý khi say sóng.</p>
+            <a href="blog.html" class="text-vt-blue fw-semibold small">Đọc tiếp</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="card tour-card">
+          <img src="https://picsum.photos/seed/blog2/600/400" class="card-img-top" alt="Đi Đà Lạt mùa nào đẹp">
+          <div class="card-body">
+            <small class="text-secondary">05/09/2026</small>
+            <h5 class="card-title mt-1 fs-6">Đi Đà Lạt mùa nào đẹp nhất trong năm?</h5>
+            <p class="card-text text-secondary small">So sánh thời tiết, mùa hoa và mức giá phòng theo từng tháng.</p>
+            <a href="blog.html" class="text-vt-blue fw-semibold small">Đọc tiếp</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="card tour-card">
+          <img src="https://picsum.photos/seed/blog3/600/400" class="card-img-top" alt="Cách sắp xếp hành lý">
+          <div class="card-body">
+            <small class="text-secondary">28/08/2026</small>
+            <h5 class="card-title mt-1 fs-6">Sắp xếp hành lý cho chuyến đi 3 ngày</h5>
+            <p class="card-text text-secondary small">Danh sách đồ cần mang giúp bạn gọn nhẹ mà vẫn đủ dùng.</p>
+            <a href="blog.html" class="text-vt-blue fw-semibold small">Đọc tiếp</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =======================================================
+     FOOTER  (DÙNG CHUNG CHO CẢ 5 TRANG - COPY Y NGUYÊN)
+     ======================================================= -->
+<footer class="pt-5 pb-4 mt-0">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4 col-md-6">
+        <h5 class="fw-bold mb-3"><i class="bi bi-airplane-engines-fill me-1"></i>VietTour</h5>
+        <p class="small">
+          Nền tảng đặt tour du lịch trọn gói trong nước: lịch trình rõ ràng, giá minh bạch,
+          xác nhận đơn nhanh chóng qua email.
+        </p>
+        <div class="mt-3">
+          <a href="#" class="social-icon"><i class="bi bi-facebook"></i></a>
+          <a href="#" class="social-icon"><i class="bi bi-instagram"></i></a>
+          <a href="#" class="social-icon"><i class="bi bi-youtube"></i></a>
+          <a href="#" class="social-icon"><i class="bi bi-tiktok"></i></a>
+        </div>
+      </div>
+
+      <div class="col-lg-2 col-md-6 col-6">
+        <h5 class="fs-6 mb-3">Liên kết</h5>
+        <ul class="list-unstyled small d-grid gap-2">
+          <li><a href="index.html">Trang chủ</a></li>
+          <li><a href="tours.html">Danh sách tour</a></li>
+          <li><a href="tour-detail.html">Chi tiết tour</a></li>
+          <li><a href="blog.html">Cẩm nang du lịch</a></li>
+          <li><a href="contact.html">Liên hệ</a></li>
+        </ul>
+      </div>
+
+      <div class="col-lg-3 col-md-6 col-6">
+        <h5 class="fs-6 mb-3">Điểm đến</h5>
+        <ul class="list-unstyled small d-grid gap-2">
+          <li><a href="tours.html">Tour miền Bắc</a></li>
+          <li><a href="tours.html">Tour miền Trung</a></li>
+          <li><a href="tours.html">Tour miền Nam</a></li>
+          <li><a href="tours.html">Tour biển đảo</a></li>
+        </ul>
+      </div>
+
+      <div class="col-lg-3 col-md-6">
+        <h5 class="fs-6 mb-3">Liên hệ</h5>
+        <ul class="list-unstyled small d-grid gap-2">
+          <li><i class="bi bi-geo-alt me-2"></i>123 Nguyễn Văn Cừ, Quận 5, TP.HCM</li>
+          <li><i class="bi bi-telephone me-2"></i>1900 1234</li>
+          <li><i class="bi bi-envelope me-2"></i>support@viettour.vn</li>
+          <li><i class="bi bi-clock me-2"></i>8:00 - 21:00 hằng ngày</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="border-secondary my-4">
+    <p class="text-center small mb-0">
+      © 2026 VietTour - Đồ án môn Lập trình Web và Ứng dụng.
+    </p>
+  </div>
+</footer>
+
+<!-- Nút lên đầu trang -->
+<button id="btnTop" title="Lên đầu trang"><i class="bi bi-arrow-up"></i></button>
+
+<!-- ===== Bootstrap 5 JS Bundle (bắt buộc để Navbar + Carousel hoạt động) ===== -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- ===== JavaScript của trang ===== -->
+<script>
+  // 1. Xử lý form tìm kiếm nhanh: chuyển sang trang tours.html kèm từ khoá
+  document.getElementById('quickSearchForm').addEventListener('submit', function (e) {
+    e.preventDefault(); // Chặn reload trang
+
+    const keyword = document.getElementById('keyword').value.trim();
+    const location = document.getElementById('location').value;
+    const startDate = document.getElementById('startDate').value;
+
+    // Giai đoạn 1 chưa có PHP nên chỉ truyền tham số lên URL của trang danh sách tour
+    const params = new URLSearchParams();
+    if (keyword)   params.append('keyword', keyword);
+    if (location)  params.append('location', location);
+    if (startDate) params.append('date', startDate);
+
+    window.location.href = 'tours.html?' + params.toString();
+  });
+
+  // 2. Hiện nút "lên đầu trang" khi cuộn xuống hơn 400px
+  const btnTop = document.getElementById('btnTop');
+  window.addEventListener('scroll', function () {
+    btnTop.style.display = window.scrollY > 400 ? 'block' : 'none';
+  });
+  btnTop.addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+
+</body>
+</html>

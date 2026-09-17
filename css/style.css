@@ -1,0 +1,219 @@
+/* ==========================================================
+   VietTour - File CSS dùng chung cho cả 5 trang
+   Đồ án môn Lập trình Web và Ứng dụng
+   ========================================================== */
+
+/* ===== 1. BIẾN MÀU & THIẾT LẬP CHUNG ===== */
+:root {
+  --vt-blue: #0d6efd;      /* Xanh dương chủ đạo */
+  --vt-blue-dark: #0a4fb3;
+  --vt-green: #10a37f;     /* Xanh lá nhấn */
+  --vt-navy: #0b2545;      /* Xanh đậm cho footer & tiêu đề */
+  --vt-light: #f4f8fb;     /* Nền xám xanh nhạt */
+  --vt-orange: #ff6b35;    /* Màu khuyến mãi */
+}
+
+body {
+  font-family: 'Be Vietnam Pro', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  color: #22333b;
+  background-color: #fff;
+}
+
+h1, h2, h3, h4, h5 { font-weight: 700; color: var(--vt-navy); }
+
+a { text-decoration: none; }
+
+.bg-light-blue { background-color: var(--vt-light); }
+.text-vt-green { color: var(--vt-green) !important; }
+.text-vt-blue  { color: var(--vt-blue)  !important; }
+
+.btn-vt-primary {
+  background-color: var(--vt-blue);
+  border-color: var(--vt-blue);
+  color: #fff;
+  font-weight: 600;
+}
+.btn-vt-primary:hover { background-color: var(--vt-blue-dark); border-color: var(--vt-blue-dark); color: #fff; }
+
+.btn-vt-green {
+  background-color: var(--vt-green);
+  border-color: var(--vt-green);
+  color: #fff;
+  font-weight: 600;
+}
+.btn-vt-green:hover { background-color: #0c8266; border-color: #0c8266; color: #fff; }
+
+/* ===== 2. NAVBAR ===== */
+.navbar-brand span { color: var(--vt-green); }
+.navbar .nav-link { font-weight: 500; color: var(--vt-navy); }
+.navbar .nav-link:hover,
+.navbar .nav-link.active { color: var(--vt-blue); }
+.navbar .nav-link.active { border-bottom: 2px solid var(--vt-blue); }
+
+/* ===== 3. CAROUSEL (BANNER TRANG CHỦ) ===== */
+.hero-carousel .carousel-item {
+  height: 520px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+.hero-carousel .carousel-item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(11,37,69,.75) 0%, rgba(11,37,69,.25) 100%);
+}
+.hero-carousel .carousel-caption {
+  z-index: 2;
+  text-align: left;
+  left: 10%;
+  right: 10%;
+  bottom: 30%;
+}
+.hero-carousel .carousel-caption h2 { color: #fff; font-size: 2.6rem; }
+
+@media (max-width: 767.98px) {
+  .hero-carousel .carousel-item { height: 420px; }
+  .hero-carousel .carousel-caption { bottom: 22%; left: 6%; right: 6%; }
+  .hero-carousel .carousel-caption h2 { font-size: 1.7rem; }
+}
+
+/* ===== 4. FORM TÌM KIẾM NHANH ===== */
+.search-box {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(11,37,69,.15);
+  padding: 22px;
+  margin-top: -60px;
+  position: relative;
+  z-index: 5;
+}
+.search-box label { font-size: .85rem; font-weight: 600; color: var(--vt-navy); }
+
+/* ===== 5. CARD TOUR ===== */
+.tour-card {
+  border: none;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(11,37,69,.08);
+  transition: transform .25s ease, box-shadow .25s ease;
+  height: 100%;
+}
+.tour-card:hover { transform: translateY(-6px); box-shadow: 0 12px 28px rgba(11,37,69,.16); }
+.tour-card img { height: 210px; object-fit: cover; }
+.tour-card .badge-sale {
+  position: absolute; top: 12px; left: 12px;
+  background: var(--vt-orange); color: #fff;
+  font-size: .78rem; font-weight: 600;
+  padding: 5px 10px; border-radius: 20px;
+}
+.price-old { text-decoration: line-through; color: #9aa5b1; font-size: .9rem; }
+.price-new { color: var(--vt-orange); font-size: 1.3rem; font-weight: 700; }
+
+/* ===== 6. CARD ĐIỂM ĐẾN ===== */
+.destination-card {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  height: 230px;
+}
+.destination-card img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+.destination-card:hover img { transform: scale(1.08); }
+.destination-card .overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(11,37,69,.85) 100%);
+  display: flex; align-items: flex-end;
+  padding: 16px; color: #fff;
+}
+
+/* ===== 7. KHỐI TIỆN ÍCH / CAM KẾT ===== */
+.feature-icon {
+  width: 60px; height: 60px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  background: rgba(13,110,253,.1);
+  color: var(--vt-blue);
+  font-size: 1.6rem;
+  margin: 0 auto 14px;
+}
+
+/* ===== 8. FOOTER ===== */
+footer { background-color: var(--vt-navy); color: #c8d3e0; }
+footer h5 { color: #fff; }
+footer a { color: #c8d3e0; }
+footer a:hover { color: #fff; }
+.social-icon {
+  width: 38px; height: 38px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  background: rgba(255,255,255,.1);
+  margin-right: 8px;
+}
+.social-icon:hover { background: var(--vt-blue); }
+
+/* ===== 9. NÚT LÊN ĐẦU TRANG ===== */
+#btnTop {
+  position: fixed; right: 20px; bottom: 20px;
+  display: none; z-index: 99;
+  width: 46px; height: 46px; border-radius: 50%;
+  border: none; background: var(--vt-blue); color: #fff;
+}
+
+/* ==========================================================
+   PHẦN RIÊNG CHO TRANG tours.html
+   ========================================================== */
+
+/* ===== 10. BANNER TIÊU ĐỀ TRANG (dùng lại được cho blog / contact) ===== */
+.page-header {
+  position: relative;
+  padding: 70px 0;
+  background: url('https://picsum.photos/seed/pageheader/1600/500') center/cover no-repeat;
+  color: #fff;
+}
+.page-header::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: rgba(11,37,69,.78);
+}
+.page-header .container { position: relative; z-index: 2; }
+.page-header h1 { color: #fff; }
+.page-header .breadcrumb-item a { color: #cfe0f5; }
+.page-header .breadcrumb-item.active { color: #fff; }
+.page-header .breadcrumb-item + .breadcrumb-item::before { color: #9fb6d4; }
+
+/* ===== 11. SIDEBAR BỘ LỌC ===== */
+.filter-sidebar {
+  background: #fff;
+  border: 1px solid #e6edf4;
+  border-radius: 14px;
+  padding: 20px;
+}
+.filter-sidebar .filter-group { padding-bottom: 18px; margin-bottom: 18px; border-bottom: 1px solid #edf2f7; }
+.filter-sidebar .filter-group:last-of-type { border-bottom: none; margin-bottom: 8px; }
+.filter-sidebar .filter-title {
+  font-size: .95rem;
+  font-weight: 700;
+  color: var(--vt-navy);
+  margin-bottom: 12px;
+}
+.filter-sidebar .form-check-label { font-size: .92rem; cursor: pointer; }
+.filter-sidebar .form-check-input:checked { background-color: var(--vt-blue); border-color: var(--vt-blue); }
+
+/* Sticky sidebar trên màn hình lớn */
+@media (min-width: 992px) {
+  .filter-sticky { position: sticky; top: 100px; }
+}
+
+/* ===== 12. THANH SẮP XẾP & KẾT QUẢ ===== */
+.result-bar {
+  background: var(--vt-light);
+  border-radius: 12px;
+  padding: 14px 18px;
+}
+
+/* ===== 13. PHÂN TRANG ===== */
+.pagination .page-link { color: var(--vt-blue); border-radius: 8px; margin: 0 3px; border: 1px solid #e0e8f0; }
+.pagination .page-item.active .page-link { background-color: var(--vt-blue); border-color: var(--vt-blue); color: #fff; }
+
+/* ===== 14. THÔNG BÁO KHÔNG CÓ KẾT QUẢ ===== */
+#noResult { display: none; }

@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Danh sách tour du lịch trọn gói - lọc theo giá, địa điểm và số ngày.">
+  <title>Danh sách tour - VietTour</title>
+
+  <!-- ===== Bootstrap 5 CSS (CDN) ===== -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- ===== Bootstrap Icons (CDN) ===== -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <!-- ===== Google Fonts ===== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- ===== CSS dùng chung của website ===== -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- =======================================================
+     HEADER / NAVBAR  (GIỐNG HỆT CÁC TRANG KHÁC)
+     Chỉ khác: class "active" đặt ở mục "Danh sách tour"
+     ======================================================= -->
+<nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top py-3">
+  <div class="container">
+    <a class="navbar-brand fw-bold fs-4" href="index.html">
+      <i class="bi bi-airplane-engines-fill text-vt-blue me-1"></i>Viet<span>Tour</span>
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+            aria-controls="mainNavbar" aria-expanded="false" aria-label="Mở menu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="mainNavbar">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-lg-2">
+        <li class="nav-item"><a class="nav-link" href="index.html">Trang chủ</a></li>
+        <li class="nav-item"><a class="nav-link active" href="tours.html">Danh sách tour</a></li>
+        <li class="nav-item"><a class="nav-link" href="tour-detail.html">Chi tiết tour</a></li>
+        <li class="nav-item"><a class="nav-link" href="blog.html">Cẩm nang du lịch</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Liên hệ</a></li>
+      </ul>
+      <div class="d-flex gap-2 ms-lg-4 mt-3 mt-lg-0">
+        <a href="#" class="btn btn-outline-primary btn-sm px-3">Đăng nhập</a>
+        <a href="#" class="btn btn-vt-primary btn-sm px-3">Đăng ký</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- =======================================================
+     BANNER TIÊU ĐỀ TRANG + BREADCRUMB
+     ======================================================= -->
+<section class="page-header">
+  <div class="container">
+    <h1 class="mb-2">Danh sách tour du lịch</h1>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Danh sách tour</li>
+      </ol>
+    </nav>
+  </div>
+</section>
+
+<!-- =======================================================
+     NỘI DUNG CHÍNH: SIDEBAR LỌC + LƯỚI TOUR
+     ======================================================= -->
+<section class="py-5">
+  <div class="container">
+
+    <!-- Nút mở bộ lọc trên điện thoại (Offcanvas) -->
+    <div class="d-lg-none mb-3">
+      <button class="btn btn-vt-primary w-100" type="button"
+              data-bs-toggle="offcanvas" data-bs-target="#filterOffcanvas">
+        <i class="bi bi-funnel-fill me-1"></i> Bộ lọc tìm kiếm
+      </button>
+    </div>
+
+    <div class="row g-4">
+
+      <!-- ============ SIDEBAR BỘ LỌC (máy tính) ============ -->
+      <aside class="col-lg-3 d-none d-lg-block">
+        <div class="filter-sticky">
+          <!-- form lọc: id dùng cho JavaScript -->
+          <form class="filter-sidebar" id="filterForm">
+            <h5 class="mb-4"><i class="bi bi-funnel-fill text-vt-blue me-1"></i>Bộ lọc</h5>
+
+            <!-- Lọc theo từ khoá -->
+            <div class="filter-group">
+              <p class="filter-title">Tìm theo tên tour</p>
+              <div class="input-group">
+                <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
+                <input type="text" class="form-control" id="filterKeyword" placeholder="Ví dụ: Đà Lạt">
+              </div>
+            </div>
+
+            <!-- Lọc theo địa điểm -->
+            <div class="filter-group">
+              <p class="filter-title">Địa điểm</p>
+              <div class="form-check mb-2">
+                <input class="form-check-input filter-region" type="checkbox" value="bac" id="regionBac">
+                <label class="form-check-label" for="regionBac">Miền Bắc</label>
+              </div>
+              <div class="form-check mb-2">
+                <input class="form-check-input filter-region" type="checkbox" value="trung" id="regionTrung">
+                <label class="form-check-label" for="regionTrung">Miền Trung</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input filter-region" type="checkbox" value="nam" id="regionNam">
+                <label class="form-check-label" for="regionNam">Miền Nam</label>
+              </div>
+            </div>
+
+            <!-- Lọc theo mức giá -->
+            <div class="filter-group">
+              <p class="filter-title">Mức giá</p>
+              <div class="form-check mb-2">
+                <input class="form-check-input filter-price" type="radio" name="price" value="all" id="priceAll" checked>
+                <label class="form-check-label" for="priceAll">Tất cả mức giá</label>
+              </div>
+              <div class="form-check mb-2">
+                <input class="form-check-input filter-price" type="radio" name="price" value="0-3000000" id="price1">
+                <label class="form-check-label" for="price1">Dưới 3 triệu</label>
+              </div>
+              <div class="form-check mb-2">
+                <input class="form-check-input filter-price" type="radio" name="price" value="3000000-5000000" id="price2">
+                <label class="form-check-label" for="price2">3 - 5 triệu</label>
+              </div>
+              <div class="form-check mb-2">
+                <input class="form-check-input filter-price" type="radio" name="price" value="5000000-8000000" id="price3">
+                <label class="form-check-label" for="price3">5 - 8 triệu</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input filter-price" type="radio" name="price" value="8000000-999000000" id="price4">
+                <label class="form-check-label" for="price4">Trên 8 triệu</label>
+              </div>
+            </div>
+
+            <!-- Lọc theo số ngày -->
+            <div class="filter-group">
+              <p class="filter-title">Số ngày</p>
+              <div class="form-check mb-2">
+                <input class="form-check-input filter-days" type="checkbox" value="2" id="days2">
+                <label class="form-check-label" for="days2">2 ngày</label>
+              </div>
+              <div class="form-check mb-2">
+                <input class="form-check-input filter-days" type="checkbox" value="3" id="days3">
+                <label class="form-check-label" for="days3">3 ngày</label>
+              </div>
+              <div class="form-check mb-2">
+                <input class="form-check-input filter-days" type="checkbox" value="4" id="days4">
+                <label class="form-check-label" for="days4">4 ngày</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input filter-days" type="checkbox" value="5" id="days5">
+                <label class="form-check-label" for="days5">5 ngày trở lên</label>
+              </div>
+            </div>
+
+            <!-- Ngày khởi hành -->
+            <div class="filter-group">
+              <p class="filter-title">Ngày khởi hành</p>
+              <input type="date" class="form-control" id="filterDate">
+              <small class="text-secondary">Sẽ lọc thực sự khi có database ở giai đoạn 2.</small>
+            </div>
+
+            <!-- Nút thao tác -->
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-vt-primary">Áp dụng bộ lọc</button>
+              <button type="reset" class="btn btn-outline-secondary" id="btnResetFilter">Xoá bộ lọc</button>
+            </div>
+          </form>
+        </div>
+      </aside>
+
+      <!-- ============ DANH SÁCH TOUR ============ -->
+      <div class="col-lg-9">
+
+        <!-- Thanh kết quả + sắp xếp -->
+        <div class="result-bar d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
+          <p class="mb-0">
+            Tìm thấy <strong id="resultCount" class="text-vt-blue">9</strong> tour phù hợp
+          </p>
+          <div class="d-flex align-items-center gap-2">
+            <label for="sortSelect" class="mb-0 small fw-semibold">Sắp xếp:</label>
+            <select class="form-select form-select-sm" id="sortSelect" style="width:auto;">
+              <option value="default">Mặc định</option>
+              <option value="price-asc">Giá tăng dần</option>
+              <option value="price-desc">Giá giảm dần</option>
+              <option value="rating">Đánh giá cao nhất</option>
+              <option value="popular">Phổ biến nhất</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Lưới tour: mỗi card có data-* để JavaScript lọc và sắp xếp -->
+        <div class="row g-4" id="tourGrid">
+
+          <!-- Tour 1 -->
+          <div class="col-md-6 col-xl-4 tour-item"
+               data-name="Hà Nội - Vịnh Hạ Long - Đảo Titop" data-region="bac"
+               data-price="3600000" data-days="3" data-rating="4.8" data-sold="320">
+            <div class="card tour-card">
+              <div class="position-relative">
+                <img src="https://picsum.photos/seed/tour1/600/420" class="card-img-top" alt="Tour Hạ Long">
+                <span class="badge-sale">-20%</span>
+              </div>
+              <div class="card-body d-flex flex-column">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <small class="text-secondary"><i class="bi bi-geo-alt-fill text-vt-green"></i> Quảng Ninh</small>
+                  <small class="text-warning"><i class="bi bi-star-fill"></i> 4.8</small>
+                </div>
+                <h5 class="card-title fs-6">Hà Nội - Vịnh Hạ Long - Đảo Titop</h5>
+                <ul class="list-unstyled small text-secondary mb-3">
+                  <li><i class="bi bi-clock me-1 text-vt-blue"></i> 3 ngày 2 đêm</li>
+                  <li><i class="bi bi-people me-1 text-vt-blue"></i> Còn 12 chỗ</li>
+                </ul>
+                <div class="mt-auto d-flex justify-content-between align-items-center">
+                  <div>
+                    <span class="price-old">4.500.000đ</span><br>
+                    <span class="price-new">3.600.000đ</span>
+                  </div>
+                  <a href="tour-detail.html" class="btn btn-vt-primary btn-sm px-3">Chi tiết</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tour 2 -->
+          <div class="col-md-6 col-xl-4 tour-item"
+               data-name="Đà Nẵng - Hội An - Bà Nà Hills" data-region="trung"
+               data-price="5450000" data-days="4" data-rating="4.9" data-sold="512">
+            <div class="card tour-card">
+              <div class="position-relative">
+                <img src="https://picsum.photos/seed/tour2/600/420" class="card-img-top" alt="Tour Đà Nẵng">
+                <span class="badge-sale">Hot</span>
+              </div>
+              <div class="card-body d-flex flex-column">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <small class="text-secondary"><i class="bi bi-geo-alt-fill text-vt-green"></i> Đà Nẵng</small>
+                  <small class="text-warning"><i class="bi bi-star-fill"></i> 4.9</small>
+                </div>
+                <h5 class="card-title fs-6">Đà Nẵng - Hội An - Bà Nà Hills</h5>
+                <ul class="list-unstyled small text-secondary mb-3">
+                  <li><i class="bi bi-clock me-1 text-vt-blue"></i> 4 ngày 3 đêm</li>
+                  <li><i class="bi bi-people me-1 text-vt-blue"></i> Còn 8 chỗ</li>
+                </ul>
+                <div class="mt-auto d-flex justify-content-between align-items-center">
+                  <div>
+                    <span class="price-old">6.200.000đ</span><br>
+                    <span class="price-new">5.450.000đ</span>
+                  </div>
+                  <a href="tour-detail.html" class="btn btn-vt-primary btn-sm px-3">Chi tiết</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tour 3 -->
+          <div class="col-md-6 col-xl-4 tour-item"
+               data-name="Đà Lạt - Săn mây Cầu Đất" data-region="nam"
+               data-price="2925000" data-days="3" data-rating="4.7" data-sold="430">
+            <div class="card tour-card">
+              <div class="position-relative">
+                <img src="https://picsum.photos/seed/tour3/600/420" class="card-img-top" alt="Tour Đà Lạt">
+                <span class="badge-sale">-25%</span>
+              </div>
+              <div class="card-body d-flex flex-column">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <small class="text-secondary"><i class="bi bi-geo-alt-fill text-vt-green"></i> Lâm Đồng</small>
+                  <small class="text-warning"><i class="bi bi-star-fill"></i> 4.7</small>
+                </div>
+                <h5 class="card-title fs-6">Đà Lạt - Săn mây Cầu Đất</h5>
+                <ul class="list-unstyled small text-secondary mb-3">
+                  <li><i class="bi bi-clock me-1 text-vt-blue"></i> 3 ngày 3 đêm</li>
+                  <li><i class="bi bi-people me-1 text-vt-blue"></i> Còn 20 chỗ</li>
+                </ul>
+                <div class="mt-auto d-flex justify-content-between align-items-center">
+                  <div>
+                    <span class="price-old">3.900.000đ</span><br>
+                    <span class="price-new">2.925.000đ</span>
+                  </div>
+                  <a href="tour-detail.html" class="btn btn-vt-primary btn-sm px-3">Chi tiết</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tour 4 -->
+          <div class="col-md-6 col-xl-4 tour-item"
+               data-name="Phú Quốc - Hòn Thơm - Grand World" data-region="nam"
+               data-price="6630000" data-days="4" data-rating="4.6" data-sold="280">
+            <div class="card tour-card">
+              <div class="position-relative">
+                <img src="https://picsum.photos/seed/tour4/600/420" class="card-img-top" alt="Tour Phú Quốc">
+                <span class="badge-sale">-15%</span>
+              </div>
+              <div class="card-body d-flex flex-column">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <small class="text-secondary"><i class="bi bi-geo-alt-fill text-vt-green"></i> Kiên Giang</small>
+                  <small class="text-warning"><i class="bi bi-star-fill"></i> 4.6</small>
+                </div>
+                <h5 class="card-title fs-6">Phú Quốc - Hòn Thơm - Grand World</h5>
+                <ul class="list-unstyled small text-secondary mb-3">
+                  <li><i class="bi bi-clock me-1 text-vt-blue"></i> 4 ngày 3 đêm</li>
+                  <li><i class="bi bi-people me-1 text-vt-blue"></i> Còn 6 chỗ</li>
+                </ul>
+                <div class="mt-auto d-flex justify-content-between align-items-center">
+                  <div>
+                    <span class="price-old">7.800.000đ</span><br>
+                    <span class="price-new">6.630.000đ</span>
+                  </div>
+                  <a href="tour-detail.html" class="btn btn-vt-primary btn-sm px-3">Chi tiết</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tour 5 -->
+          <div class="col-md-6 col-xl-4 tour-item"
+               data-name="Sa Pa - Fansipan - Bản Cát Cát" data-region="bac"
+               data-price="3780000" data-days="3" data-rating="4.5" data-sold="260">
+            <div class="card tour-card">
+              <div class="position-relative">
+                <img src="https://picsum.photos/seed/tour5/600/420" class="card-img-top" alt="Tour Sa Pa">
+                <span class="badge-sale">Mới</span>
+              </div>
+              <div class="card-body d-flex flex-column">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <small class="text-secondary"><i class="bi bi-geo-alt-fill text-vt-green"></i> Lào Cai</small>
+                  <small class="text-warning"><i class="bi bi-star-fill"></i> 4.5</small>
+                </div>
+                <h5 class="card-title fs-6">Sa Pa - Fansipan - Bản Cát Cát</h5>
+                <ul class="list-unstyled small text-secondary mb-3">
+                  <li><i class="bi bi-clock me-1 text-vt-blue"></i> 3 ngày 2 đêm</li>
+                  <li><i class="bi bi-people me-1 text-vt-blue"></i> Còn 15 chỗ</li>
+                </ul>
+                <div class="mt-auto d-flex justify-content-between align-items-center">
+                  <div>
+                    <span class="price-old">4.200.000đ</span><br>
+                    <span class="price-new">3.780.000đ</span>
+                  </div>
+                  <a href="tour-detail.html" class="btn btn-vt-primary btn-sm px-3">Chi tiết</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tour 6 -->
+          <div class="col-md-6 col-xl-4 tour-item"
+               data-name="Miền Tây - Chợ nổi Cái Răng" data-region="nam"
+               data-price="1791000" data-days="2" data-rating="4.4" data-sold="610">
+            <div class="card tour-card">
+              <div class="position-relative">
+                <img src="https://picsum.photos/seed/tour6/600/420" class="card-img-top" alt="Tour Miền Tây">
+                <span class="badge-sale">-10%</span>
+              </div>
+              <div class="card-body d-flex flex-column">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <small class="text-secondary"><i class="bi bi-geo-alt-fill text-vt-green"></i> Cần Thơ</small>
+                  <small class="text-warning"><i class="bi bi-star-fill"></i> 4.4</small>
+                </div>
+                <h5 class="card-title fs-6">Miền Tây - Chợ nổi Cái Răng</h5>
+                <ul class="list-unstyled small text-secondary mb-3">
+                  <li><i class="bi bi-clock me-1 text-vt-blue"></i> 2 ngày 1 đêm</li>
+                  <li><i class="bi bi-people me-1 text-vt-blue"></i> Còn 25 chỗ</li>
+                </ul>
+                <div class="mt-auto d-flex justify-content-between align-items-center">
+                  <div>
+                    <span class="price-old">1.990.000đ</span><br>
+                    <span class="price-new">1.791.000đ</span>
+                  </div>
+                  <a href="tour-detail.html" class="btn btn-vt-primary btn-sm px-3">Chi tiết</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tour 7 -->
+          <div class="col-md-6 col-xl-4 tour-item"
+               data-name="Huế - Động Phong Nha - Quảng Bình" data-region="trung"
+               data-price="4850000" data-days="4" data-rating="4.6" data-sold="190">
+            <div class="card tour-card">
+              <div class="position-relative">
+                <img src="https://picsum.photos/seed/tour7/600/420" class="card-img-top" alt="Tour Huế">
+              </div>
+              <div class="card-body d-flex flex-column">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <small class="text-secondary"><i class="bi bi-geo-alt-fill text-vt-green"></i> Thừa Thiên Huế</small>
+                  <small class="text-warning"><i class="bi bi-star-fill"></i> 4.6</small>
+                </div>
+                <h5 class="card-title fs-6">Huế - Động Phong Nha - Quảng Bình</h5>
+                <ul class="list-unstyled small text-secondary mb-3">
+                  <li><i class="bi bi-clock me-1 text-vt-blue"></i> 4 ngày 3 đêm</li>
+                  <li><i class="bi bi-people me-1 text-vt-blue"></i> Còn 18 chỗ</li>
+                </ul>
+                <div class="mt-auto d-flex justify-content-between align-items-center">
+                  <div>
+                    <span class="price-new">4.850.000đ</span>
+                  </div>
+                  <a href="tour-detail.html" class="btn btn-vt-primary btn-sm px-3">Chi tiết</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tour 8 -->
+          <div class="col-md-6 col-xl-4 tour-item"
+               data-name="Hà Giang - Cao nguyên đá Đồng Văn" data-region="bac"
+               data-price="8900000" data-days="5" data-rating="4.9" data-sold="145">
+            <div class="card tour-card">
+              <div class="position-relative">
+                <img src="https://picsum.photos/seed/tour8/600/420" class="card-img-top" alt="Tour Hà Giang">
+                <span class="badge-sale">Cao cấp</span>
+              </div>
+              <div class="card-body d-flex flex-column">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <small class="text-secondary"><i class="bi bi-geo-alt-fill text-vt-green"></i> Hà Giang</small>
+                  <small class="text-warning"><i class="bi bi-star-fill"></i> 4.9</small>
+                </div>
+                <h5 class="card-title fs-6">Hà Giang - Cao nguyên đá Đồng Văn</h5>
+                <ul class="list-unstyled small text-secondary mb-3">
+                  <li><i class="bi bi-clock me-1 text-vt-blue"></i> 5 ngày 4 đêm</li>
+                  <li><i class="bi bi-people me-1 text-vt-blue"></i> Còn 10 chỗ</li>
+                </ul>
+                <div class="mt-auto d-flex justify-content-between align-items-center">
+                  <div>
+                    <span class="price-new">8.900.000đ</span>
+                  </div>
+                  <a href="tour-detail.html" class="btn btn-vt-primary btn-sm px-3">Chi tiết</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tour 9 -->
+          <div class="col-md-6 col-xl-4 tour-item"
+               data-name="Nha Trang - Đảo Bình Ba" data-region="trung"
+               data-price="2650000" data-days="2" data-rating="4.3" data-sold="375">
+            <div class="card tour-card">
+              <div class="position-relative">
+                <img src="https://picsum.photos/seed/tour9/600/420" class="card-img-top" alt="Tour Nha Trang">
+                <span class="badge-sale">-12%</span>
+              </div>
+              <div class="card-body d-flex flex-column">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <small class="text-secondary"><i class="bi bi-geo-alt-fill text-vt-green"></i> Khánh Hoà</small>
+                  <small class="text-warning"><i class="bi bi-star-fill"></i> 4.3</small>
+                </div>
+                <h5 class="card-title fs-6">Nha Trang - Đảo Bình Ba</h5>
+                <ul class="list-unstyled small text-secondary mb-3">
+                  <li><i class="bi bi-clock me-1 text-vt-blue"></i> 2 ngày 1 đêm</li>
+                  <li><i class="bi bi-people me-1 text-vt-blue"></i> Còn 22 chỗ</li>
+                </ul>
+                <div class="mt-auto d-flex justify-content-between align-items-center">
+                  <div>
+                    <span class="price-old">3.010.000đ</span><br>
+                    <span class="price-new">2.650.000đ</span>
+                  </div>
+                  <a href="tour-detail.html" class="btn btn-vt-primary btn-sm px-3">Chi tiết</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /tourGrid -->
+
+        <!-- Thông báo khi không có tour nào khớp bộ lọc -->
+        <div class="alert alert-warning text-center mt-4" id="noResult">
+          <i class="bi bi-emoji-frown me-1"></i>
+          Không tìm thấy tour phù hợp. Bạn thử bỏ bớt điều kiện lọc nhé.
+        </div>
+
+        <!-- Phân trang (giai đoạn 1 để tĩnh, giai đoạn 2 sẽ phân trang bằng PHP) -->
+        <nav class="mt-5" aria-label="Phân trang">
+          <ul class="pagination justify-content-center">
+            <li class="page-item disabled"><a class="page-link" href="#"><i class="bi bi-chevron-left"></i></a></li>
+            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#"><i class="bi bi-chevron-right"></i></a></li>
+          </ul>
+        </nav>
+
+      </div><!-- /col-lg-9 -->
+    </div><!-- /row -->
+  </div>
+</section>
+
+<!-- =======================================================
+     OFFCANVAS BỘ LỌC CHO ĐIỆN THOẠI
+     Chứa cùng các input nhưng id khác (thêm hậu tố M)
+     ======================================================= -->
+<div class="offcanvas offcanvas-start" tabindex="-1" id="filterOffcanvas">
+  <div class="offcanvas-header border-bottom">
+    <h5 class="offcanvas-title"><i class="bi bi-funnel-fill text-vt-blue me-1"></i>Bộ lọc</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Đóng"></button>
+  </div>
+  <div class="offcanvas-body">
+    <form id="filterFormMobile">
+      <div class="filter-group">
+        <p class="filter-title">Tìm theo tên tour</p>
+        <input type="text" class="form-control" id="filterKeywordM" placeholder="Ví dụ: Đà Lạt">
+      </div>
+
+      <div class="filter-group">
+        <p class="filter-title">Địa điểm</p>
+        <div class="form-check mb-2">
+          <input class="form-check-input filter-region-m" type="checkbox" value="bac" id="regionBacM">
+          <label class="form-check-label" for="regionBacM">Miền Bắc</label>
+        </div>
+        <div class="form-check mb-2">
+          <input class="form-check-input filter-region-m" type="checkbox" value="trung" id="regionTrungM">
+          <label class="form-check-label" for="regionTrungM">Miền Trung</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input filter-region-m" type="checkbox" value="nam" id="regionNamM">
+          <label class="form-check-label" for="regionNamM">Miền Nam</label>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <p class="filter-title">Mức giá</p>
+        <div class="form-check mb-2">
+          <input class="form-check-input filter-price-m" type="radio" name="priceM" value="all" id="priceAllM" checked>
+          <label class="form-check-label" for="priceAllM">Tất cả mức giá</label>
+        </div>
+        <div class="form-check mb-2">
+          <input class="form-check-input filter-price-m" type="radio" name="priceM" value="0-3000000" id="price1M">
+          <label class="form-check-label" for="price1M">Dưới 3 triệu</label>
+        </div>
+        <div class="form-check mb-2">
+          <input class="form-check-input filter-price-m" type="radio" name="priceM" value="3000000-5000000" id="price2M">
+          <label class="form-check-label" for="price2M">3 - 5 triệu</label>
+        </div>
+        <div class="form-check mb-2">
+          <input class="form-check-input filter-price-m" type="radio" name="priceM" value="5000000-8000000" id="price3M">
+          <label class="form-check-label" for="price3M">5 - 8 triệu</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input filter-price-m" type="radio" name="priceM" value="8000000-999000000" id="price4M">
+          <label class="form-check-label" for="price4M">Trên 8 triệu</label>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <p class="filter-title">Số ngày</p>
+        <div class="form-check mb-2">
+          <input class="form-check-input filter-days-m" type="checkbox" value="2" id="days2M">
+          <label class="form-check-label" for="days2M">2 ngày</label>
+        </div>
+        <div class="form-check mb-2">
+          <input class="form-check-input filter-days-m" type="checkbox" value="3" id="days3M">
+          <label class="form-check-label" for="days3M">3 ngày</label>
+        </div>
+        <div class="form-check mb-2">
+          <input class="form-check-input filter-days-m" type="checkbox" value="4" id="days4M">
+          <label class="form-check-label" for="days4M">4 ngày</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input filter-days-m" type="checkbox" value="5" id="days5M">
+          <label class="form-check-label" for="days5M">5 ngày trở lên</label>
+        </div>
+      </div>
+
+      <div class="d-grid gap-2 mt-3">
+        <button type="submit" class="btn btn-vt-primary" data-bs-dismiss="offcanvas">Áp dụng bộ lọc</button>
+        <button type="reset" class="btn btn-outline-secondary">Xoá bộ lọc</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- =======================================================
+     FOOTER  (GIỐNG HỆT CÁC TRANG KHÁC)
+     ======================================================= -->
+<footer class="pt-5 pb-4">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4 col-md-6">
+        <h5 class="fw-bold mb-3"><i class="bi bi-airplane-engines-fill me-1"></i>VietTour</h5>
+        <p class="small">
+          Nền tảng đặt tour du lịch trọn gói trong nước: lịch trình rõ ràng, giá minh bạch,
+          xác nhận đơn nhanh chóng qua email.
+        </p>
+        <div class="mt-3">
+          <a href="#" class="social-icon"><i class="bi bi-facebook"></i></a>
+          <a href="#" class="social-icon"><i class="bi bi-instagram"></i></a>
+          <a href="#" class="social-icon"><i class="bi bi-youtube"></i></a>
+          <a href="#" class="social-icon"><i class="bi bi-tiktok"></i></a>
+        </div>
+      </div>
+
+      <div class="col-lg-2 col-md-6 col-6">
+        <h5 class="fs-6 mb-3">Liên kết</h5>
+        <ul class="list-unstyled small d-grid gap-2">
+          <li><a href="index.html">Trang chủ</a></li>
+          <li><a href="tours.html">Danh sách tour</a></li>
+          <li><a href="tour-detail.html">Chi tiết tour</a></li>
+          <li><a href="blog.html">Cẩm nang du lịch</a></li>
+          <li><a href="contact.html">Liên hệ</a></li>
+        </ul>
+      </div>
+
+      <div class="col-lg-3 col-md-6 col-6">
+        <h5 class="fs-6 mb-3">Điểm đến</h5>
+        <ul class="list-unstyled small d-grid gap-2">
+          <li><a href="tours.html">Tour miền Bắc</a></li>
+          <li><a href="tours.html">Tour miền Trung</a></li>
+          <li><a href="tours.html">Tour miền Nam</a></li>
+          <li><a href="tours.html">Tour biển đảo</a></li>
+        </ul>
+      </div>
+
+      <div class="col-lg-3 col-md-6">
+        <h5 class="fs-6 mb-3">Liên hệ</h5>
+        <ul class="list-unstyled small d-grid gap-2">
+          <li><i class="bi bi-geo-alt me-2"></i>123 Nguyễn Văn Cừ, Quận 5, TP.HCM</li>
+          <li><i class="bi bi-telephone me-2"></i>1900 1234</li>
+          <li><i class="bi bi-envelope me-2"></i>support@viettour.vn</li>
+          <li><i class="bi bi-clock me-2"></i>8:00 - 21:00 hằng ngày</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="border-secondary my-4">
+    <p class="text-center small mb-0">
+      © 2026 VietTour - Đồ án môn Lập trình Web và Ứng dụng.
+    </p>
+  </div>
+</footer>
+
+<button id="btnTop" title="Lên đầu trang"><i class="bi bi-arrow-up"></i></button>
+
+<!-- ===== Bootstrap 5 JS Bundle ===== -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- ===== JavaScript xử lý lọc & sắp xếp (dữ liệu mẫu, chưa cần PHP) ===== -->
+<script>
+  const tourGrid   = document.getElementById('tourGrid');
+  const tourItems  = Array.from(document.querySelectorAll('.tour-item'));
+  const resultCount= document.getElementById('resultCount');
+  const noResult   = document.getElementById('noResult');
+  const sortSelect = document.getElementById('sortSelect');
+
+  // Lưu thứ tự ban đầu để dùng cho lựa chọn "Mặc định"
+  const originalOrder = tourItems.slice();
+
+  /* ---------- 1. Đọc điều kiện lọc từ sidebar hoặc offcanvas ---------- */
+  function getFilterValues(isMobile) {
+    const kwEl = document.getElementById(isMobile ? 'filterKeywordM' : 'filterKeyword');
+    const regionEls = document.querySelectorAll(isMobile ? '.filter-region-m:checked' : '.filter-region:checked');
+    const priceEl = document.querySelector(isMobile ? '.filter-price-m:checked' : '.filter-price:checked');
+    const daysEls = document.querySelectorAll(isMobile ? '.filter-days-m:checked' : '.filter-days:checked');
+
+    return {
+      keyword: kwEl.value.trim().toLowerCase(),
+      regions: Array.from(regionEls).map(el => el.value),
+      price:   priceEl ? priceEl.value : 'all',
+      days:    Array.from(daysEls).map(el => parseInt(el.value))
+    };
+  }
+
+  /* ---------- 2. Lọc danh sách tour ---------- */
+  function applyFilter(isMobile) {
+    const f = getFilterValues(isMobile);
+    let count = 0;
+
+    tourItems.forEach(item => {
+      const name   = item.dataset.name.toLowerCase();
+      const region = item.dataset.region;
+      const price  = parseInt(item.dataset.price);
+      const days   = parseInt(item.dataset.days);
+
+      // Điều kiện 1: từ khoá
+      const okKeyword = f.keyword === '' || name.includes(f.keyword);
+
+      // Điều kiện 2: địa điểm (không chọn = lấy tất cả)
+      const okRegion = f.regions.length === 0 || f.regions.includes(region);
+
+      // Điều kiện 3: khoảng giá
+      let okPrice = true;
+      if (f.price !== 'all') {
+        const [min, max] = f.price.split('-').map(Number);
+        okPrice = price >= min && price <= max;
+      }
+
+      // Điều kiện 4: số ngày (giá trị 5 nghĩa là "5 ngày trở lên")
+      let okDays = f.days.length === 0;
+      if (!okDays) {
+        okDays = f.days.some(d => (d === 5 ? days >= 5 : days === d));
+      }
+
+      // Hiển thị hoặc ẩn card
+      if (okKeyword && okRegion && okPrice && okDays) {
+        item.style.display = '';
+        count++;
+      } else {
+        item.style.display = 'none';
+      }
+    });
+
+    resultCount.textContent = count;
+    noResult.style.display = count === 0 ? 'block' : 'none';
+  }
+
+  /* ---------- 3. Sắp xếp danh sách tour ---------- */
+  function applySort() {
+    const value = sortSelect.value;
+    let sorted;
+
+    if (value === 'price-asc') {
+      sorted = tourItems.slice().sort((a, b) => a.dataset.price - b.dataset.price);
+    } else if (value === 'price-desc') {
+      sorted = tourItems.slice().sort((a, b) => b.dataset.price - a.dataset.price);
+    } else if (value === 'rating') {
+      sorted = tourItems.slice().sort((a, b) => b.dataset.rating - a.dataset.rating);
+    } else if (value === 'popular') {
+      sorted = tourItems.slice().sort((a, b) => b.dataset.sold - a.dataset.sold);
+    } else {
+      sorted = originalOrder;
+    }
+
+    // Đưa các card vào lại lưới theo thứ tự mới
+    sorted.forEach(item => tourGrid.appendChild(item));
+  }
+
+  /* ---------- 4. Gắn sự kiện ---------- */
+  document.getElementById('filterForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    applyFilter(false);
+  });
+
+  document.getElementById('filterFormMobile').addEventListener('submit', function (e) {
+    e.preventDefault();
+    applyFilter(true);
+  });
+
+  // Nhấn "Xoá bộ lọc" thì hiện lại toàn bộ tour
+  document.querySelectorAll('#filterForm, #filterFormMobile').forEach(form => {
+    form.addEventListener('reset', function () {
+      setTimeout(function () {
+        tourItems.forEach(item => item.style.display = '');
+        resultCount.textContent = tourItems.length;
+        noResult.style.display = 'none';
+      }, 0); // chờ trình duyệt reset xong giá trị input
+    });
+  });
+
+  sortSelect.addEventListener('change', applySort);
+
+  /* ---------- 5. Nhận từ khoá do trang chủ gửi sang qua URL ---------- */
+  window.addEventListener('DOMContentLoaded', function () {
+    const params = new URLSearchParams(window.location.search);
+    const keyword = params.get('keyword');
+    if (keyword) {
+      document.getElementById('filterKeyword').value = keyword;
+      document.getElementById('filterKeywordM').value = keyword;
+      applyFilter(false);
+    }
+  });
+
+  /* ---------- 6. Nút lên đầu trang ---------- */
+  const btnTop = document.getElementById('btnTop');
+  window.addEventListener('scroll', function () {
+    btnTop.style.display = window.scrollY > 400 ? 'block' : 'none';
+  });
+  btnTop.addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+
+</body>
+</html>
