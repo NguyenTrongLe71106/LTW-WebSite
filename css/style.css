@@ -50,6 +50,44 @@ a { text-decoration: none; }
 .navbar .nav-link.active { color: var(--vt-blue); }
 .navbar .nav-link.active { border-bottom: 2px solid var(--vt-blue); }
 
+/* ===== 2b. MỤC "KHUYẾN MÃI" NỔI BẬT TRÊN NAVBAR ===== */
+.nav-link-sale {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #E53935 !important;   /* Đỏ cam nổi bật, khác hẳn các mục còn lại */
+  font-weight: 700 !important;
+}
+/* Đặt SAU rule ".navbar .nav-link:hover" phía trên nên sẽ được ưu tiên áp dụng */
+.navbar .nav-link.nav-link-sale:hover,
+.navbar .nav-link.nav-link-sale.active {
+  color: #c62828 !important;
+  border-bottom-color: #E53935;
+}
+
+.badge-hot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #FF4D4D, #E53935);
+  color: #fff;
+  font-size: .62rem;
+  font-weight: 700;
+  letter-spacing: .3px;
+  line-height: 1;
+  padding: 3px 7px;
+  border-radius: 20px;
+  animation: pulseHot 1.8s ease-in-out infinite;
+}
+@keyframes pulseHot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%      { transform: scale(1.12); opacity: .85; }
+}
+/* Tôn trọng người dùng đã bật "giảm hiệu ứng chuyển động" trong hệ điều hành */
+@media (prefers-reduced-motion: reduce) {
+  .badge-hot { animation: none; }
+}
+
 /* ===== 3. CAROUSEL (BANNER TRANG CHỦ) ===== */
 .hero-carousel .carousel-item {
   height: 520px;
@@ -217,3 +255,193 @@ footer a:hover { color: #fff; }
 
 /* ===== 14. THÔNG BÁO KHÔNG CÓ KẾT QUẢ ===== */
 #noResult { display: none; }
+
+/* ==========================================================
+   PHẦN RIÊNG CHO TRANG tour-detail.html
+   ========================================================== */
+
+/* ===== 15. THANH BREADCRUMB CHI TIẾT ===== */
+.detail-breadcrumb { background: var(--vt-light); padding: 14px 0; }
+
+/* ===== 16. GALLERY ẢNH ===== */
+.gallery-main { border-radius: 14px; overflow: hidden; height: 440px; }
+.gallery-main img { width: 100%; height: 100%; object-fit: cover; }
+@media (max-width: 767.98px) { .gallery-main { height: 260px; } }
+
+.gallery-thumbs { display: flex; gap: 10px; margin-top: 10px; }
+.gallery-thumbs img {
+  width: 100%; height: 90px; object-fit: cover; border-radius: 10px;
+  cursor: pointer; border: 3px solid transparent; opacity: .7; transition: .2s;
+}
+.gallery-thumbs img:hover { opacity: 1; }
+.gallery-thumbs img.active-thumb { border-color: var(--vt-blue); opacity: 1; }
+
+/* ===== 17. KHỐI TIÊU ĐỀ TOUR ===== */
+.detail-title-bar { border-bottom: 1px solid #e6edf4; padding-bottom: 18px; margin-bottom: 24px; }
+
+/* ===== 18. TAB THÔNG TIN TOUR ===== */
+.nav-tabs-custom { border-bottom: 1px solid #e6edf4; }
+.nav-tabs-custom .nav-link {
+  color: var(--vt-navy); font-weight: 600; border: none;
+  border-bottom: 3px solid transparent; padding: 12px 4px; margin-right: 28px;
+  background: none;
+}
+.nav-tabs-custom .nav-link.active { color: var(--vt-blue); border-bottom-color: var(--vt-blue); }
+
+/* ===== 19. ACCORDION LỊCH TRÌNH ===== */
+.day-accordion .accordion-button { font-weight: 600; color: var(--vt-navy); }
+.day-accordion .accordion-button:not(.collapsed) { color: var(--vt-blue); background-color: rgba(13,110,253,.06); box-shadow: none; }
+.day-accordion .accordion-button:focus { box-shadow: none; }
+.day-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 30px; height: 30px; border-radius: 50%;
+  background: var(--vt-blue); color: #fff; font-size: .85rem; font-weight: 700;
+  margin-right: 10px; flex-shrink: 0;
+}
+
+/* ===== 20. DỊCH VỤ BAO GỒM / KHÔNG BAO GỒM ===== */
+.included-list li, .excluded-list li { padding: 6px 0; }
+.included-list i { color: var(--vt-green); margin-right: 8px; }
+.excluded-list i { color: #dc3545; margin-right: 8px; }
+
+/* ===== 21. KHỐI ĐẶT TOUR (SIDEBAR PHẢI) ===== */
+.booking-card { border: 1px solid #e6edf4; border-radius: 16px; padding: 24px; box-shadow: 0 10px 30px rgba(11,37,69,.08); }
+@media (min-width: 992px) { .booking-sticky { position: sticky; top: 100px; } }
+
+.qty-stepper { display: flex; align-items: center; border: 1px solid #dbe3ec; border-radius: 8px; overflow: hidden; width: 130px; }
+.qty-stepper button { width: 38px; height: 38px; border: none; background: #f4f8fb; font-size: 1.1rem; color: var(--vt-navy); }
+.qty-stepper button:hover { background: #e6edf4; }
+.qty-stepper input { width: 54px; text-align: center; border: none; outline: none; font-weight: 600; }
+
+.price-breakdown { font-size: .92rem; }
+.price-breakdown .row + .row { margin-top: 6px; }
+
+/* ==========================================================
+   PHẦN RIÊNG CHO TRANG blog.html
+   ========================================================== */
+
+/* ===== 22. Ô TÌM KIẾM & BỘ LỌC CHỦ ĐỀ ===== */
+.category-filter .btn {
+  border-radius: 30px; font-size: .85rem; font-weight: 600;
+  margin-right: 8px; margin-bottom: 8px; border-color: #dbe3ec; color: var(--vt-navy);
+}
+.category-filter .btn.active-filter {
+  background: var(--vt-blue); color: #fff; border-color: var(--vt-blue);
+}
+
+/* ===== 23. CARD BÀI VIẾT ===== */
+.article-card { position: relative; }
+.article-card .card-img-top { height: 200px; object-fit: cover; }
+.article-category-badge {
+  position: absolute; top: 12px; left: 12px;
+  background: var(--vt-green); color: #fff; font-size: .75rem; font-weight: 600;
+  padding: 5px 10px; border-radius: 20px; z-index: 2;
+}
+.article-meta { font-size: .82rem; color: #8a97a6; }
+
+/* ===== 24. SIDEBAR CẨM NANG ===== */
+.sidebar-card { background: #fff; border: 1px solid #e6edf4; border-radius: 14px; padding: 20px; }
+.sidebar-post { display: flex; gap: 12px; padding-bottom: 14px; margin-bottom: 14px; border-bottom: 1px solid #edf2f7; }
+.sidebar-post:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.sidebar-post img { width: 72px; height: 72px; object-fit: cover; border-radius: 10px; flex-shrink: 0; }
+.sidebar-post h6 { font-size: .88rem; margin-bottom: 4px; line-height: 1.3; }
+.sidebar-post h6 a { color: var(--vt-navy); }
+.sidebar-post h6 a:hover { color: var(--vt-blue); }
+
+.tag-badge {
+  display: inline-block; background: var(--vt-light); color: var(--vt-navy);
+  font-size: .8rem; padding: 6px 12px; border-radius: 20px; margin: 0 6px 8px 0; transition: .2s;
+}
+.tag-badge:hover { background: var(--vt-blue); color: #fff; }
+
+#noArticleResult { display: none; }
+
+/* ==========================================================
+   PHẦN RIÊNG CHO TRANG contact.html
+   ========================================================== */
+
+/* ===== 25. KHỐI THÔNG TIN LIÊN HỆ ===== */
+.contact-info-card {
+  background: #fff; border: 1px solid #e6edf4; border-radius: 16px;
+  padding: 30px; box-shadow: 0 10px 30px rgba(11,37,69,.08);
+}
+.contact-info-item { display: flex; gap: 14px; margin-bottom: 22px; }
+.contact-info-item:last-of-type { margin-bottom: 0; }
+.contact-info-icon {
+  width: 48px; height: 48px; border-radius: 50%;
+  background: rgba(13,110,253,.1); color: var(--vt-blue);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.25rem; flex-shrink: 0;
+}
+.contact-info-item h6 { margin-bottom: 2px; color: var(--vt-navy); font-weight: 700; }
+.contact-info-item p, .contact-info-item a { margin-bottom: 0; color: #5b6b7c; }
+.contact-info-item a:hover { color: var(--vt-blue); }
+
+.social-icon-alt {
+  width: 38px; height: 38px; display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 50%; background: var(--vt-light); color: var(--vt-navy); margin-right: 8px; transition: .2s;
+}
+.social-icon-alt:hover { background: var(--vt-blue); color: #fff; }
+
+/* ===== 26. BẢN ĐỒ NHÚNG ===== */
+.map-wrapper { border-radius: 16px; overflow: hidden; border: 1px solid #e6edf4; }
+.map-wrapper iframe { width: 100%; height: 260px; border: 0; display: block; }
+
+/* ===== 27. FORM LIÊN HỆ ===== */
+.contact-form-card {
+  background: #fff; border: 1px solid #e6edf4; border-radius: 16px;
+  padding: 30px; box-shadow: 0 10px 30px rgba(11,37,69,.08); height: 100%;
+}
+.contact-form-card .form-label { font-weight: 600; font-size: .9rem; color: var(--vt-navy); }
+.contact-form-card .form-control:focus,
+.contact-form-card .form-select:focus {
+  border-color: var(--vt-blue); box-shadow: 0 0 0 .2rem rgba(13,110,253,.15);
+}
+#contactSuccessAlert { display: none; }
+
+/* ==========================================================
+   PHẦN RIÊNG CHO TRANG khuyen-mai.html
+   ========================================================== */
+
+/* ===== 28. BANNER TIÊU ĐỀ MÀU ĐỎ CHO TRANG KHUYẾN MÃI ===== */
+.page-header-sale {
+  position: relative;
+  padding: 60px 0 50px;
+  background: url('https://picsum.photos/seed/sale-banner/1600/500') center/cover no-repeat;
+  color: #fff;
+}
+.page-header-sale::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(120deg, rgba(198,40,40,.90) 0%, rgba(255,107,53,.65) 100%);
+}
+.page-header-sale .container { position: relative; z-index: 2; }
+.page-header-sale h1 { color: #fff; }
+.page-header-sale .breadcrumb-item a { color: #ffe0d6; }
+.page-header-sale .breadcrumb-item.active { color: #fff; }
+.page-header-sale .breadcrumb-item + .breadcrumb-item::before { color: #ffb8a3; }
+
+/* ===== 29. ĐỒNG HỒ ĐẾM NGƯỢC ===== */
+.countdown-box {
+  display: flex; gap: 12px; flex-wrap: wrap;
+}
+.countdown-item {
+  background: rgba(255,255,255,.16);
+  backdrop-filter: blur(4px);
+  border-radius: 12px;
+  padding: 12px 18px;
+  text-align: center;
+  min-width: 76px;
+}
+.countdown-item .num { font-size: 1.7rem; font-weight: 700; line-height: 1; color: #fff; }
+.countdown-item .label { font-size: .72rem; color: #ffe6de; text-transform: uppercase; letter-spacing: .5px; }
+
+/* ===== 30. NHÃN GIẢM GIÁ LỚN TRÊN CARD ===== */
+.sale-percent-badge {
+  position: absolute; top: 12px; left: 12px;
+  background: linear-gradient(135deg, #FF4D4D, #E53935);
+  color: #fff; font-weight: 800; font-size: 1rem;
+  padding: 6px 12px; border-radius: 10px;
+  box-shadow: 0 6px 14px rgba(229,57,53,.35);
+}
+.sale-deadline { font-size: .8rem; color: #c62828; font-weight: 600; }

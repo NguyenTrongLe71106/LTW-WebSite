@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Khuyến mãi VietTour - ưu đãi tour du lịch giảm giá đến 25%, số lượng có hạn.">
+  <title>Khuyến mãi - VietTour</title>
+
+  <!-- ===== Bootstrap 5 CSS (CDN) ===== -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- ===== Bootstrap Icons (CDN) ===== -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <!-- ===== Google Fonts ===== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- ===== CSS dùng chung của website ===== -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- =======================================================
+     HEADER / NAVBAR  (GIỐNG HỆT CÁC TRANG KHÁC)
+     ======================================================= -->
+<nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top py-3">
+  <div class="container">
+    <a class="navbar-brand fw-bold fs-4" href="index.html">
+      <i class="bi bi-airplane-engines-fill text-vt-blue me-1"></i>Viet<span>Tour</span>
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+            aria-controls="mainNavbar" aria-expanded="false" aria-label="Mở menu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="mainNavbar">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-lg-2">
+        <li class="nav-item"><a class="nav-link" href="index.html">Trang chủ</a></li>
+        <li class="nav-item"><a class="nav-link" href="tours.html">Danh sách tour</a></li>
+        <li class="nav-item">
+          <a class="nav-link nav-link-sale active" href="khuyen-mai.html">
+            Khuyến mãi <span class="badge-hot">HOT</span>
+          </a>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="blog.html">Cẩm nang du lịch</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Liên hệ</a></li>
+      </ul>
+      <div class="d-flex gap-2 ms-lg-4 mt-3 mt-lg-0">
+        <a href="#" class="btn btn-outline-primary btn-sm px-3">Đăng nhập</a>
+        <a href="#" class="btn btn-vt-primary btn-sm px-3">Đăng ký</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- =======================================================
+     BANNER TIÊU ĐỀ MÀU ĐỎ + ĐỒNG HỒ ĐẾM NGƯỢC
+     ======================================================= -->
+<section class="page-header-sale">
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb mb-3">
+        <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Khuyến mãi</li>
+      </ol>
+    </nav>
+
+    <div class="row align-items-center g-4">
+      <div class="col-lg-7">
+        <span class="badge bg-white text-danger fw-bold mb-3">
+          <i class="bi bi-fire"></i> ƯU ĐÃI CÓ HẠN
+        </span>
+        <h1 class="mb-3">Khuyến mãi Hot - Giảm đến 25%</h1>
+        <p class="fs-5 mb-0" style="max-width:520px;">
+          Săn ngay các tour du lịch trọn gói đang giảm giá sâu nhất tháng này.
+          Số lượng chỗ có hạn cho mỗi ngày khởi hành.
+        </p>
+      </div>
+      <div class="col-lg-5">
+        <p class="mb-2 fw-semibold"><i class="bi bi-clock-history me-1"></i>Ưu đãi kết thúc sau:</p>
+        <div class="countdown-box" id="countdownBox">
+          <div class="countdown-item">
+            <div class="num" id="cdDays">00</div>
+            <div class="label">Ngày</div>
+          </div>
+          <div class="countdown-item">
+            <div class="num" id="cdHours">00</div>
+            <div class="label">Giờ</div>
+          </div>
+          <div class="countdown-item">
+            <div class="num" id="cdMinutes">00</div>
+            <div class="label">Phút</div>
+          </div>
+          <div class="countdown-item">
+            <div class="num" id="cdSeconds">00</div>
+            <div class="label">Giây</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =======================================================
+     LƯỚI TOUR ĐANG KHUYẾN MÃI
+     ======================================================= -->
+<section class="py-5">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-end flex-wrap gap-2 mb-4">
+      <div>
+        <h2 class="mb-1">Tour đang giảm giá</h2>
+        <p class="text-secondary mb-0">Giá đã bao gồm vé máy bay, khách sạn, ăn uống và hướng dẫn viên.</p>
+      </div>
+      <span class="text-secondary small"><strong class="text-vt-blue">5</strong> chương trình khuyến mãi</span>
+    </div>
+
+    <div class="row g-4">
+
+      <!-- Tour khuyến mãi 1 -->
+      <div class="col-md-6 col-xl-4">
+        <div class="card tour-card">
+          <div class="position-relative">
+            <img src="https://picsum.photos/seed/tour1/600/420" class="card-img-top" alt="Tour Hạ Long">
+            <span class="sale-percent-badge">-20%</span>
+          </div>
+          <div class="card-body d-flex flex-column">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <small class="text-secondary"><i class="bi bi-geo-alt-fill text-vt-green"></i> Quảng Ninh</small>
+              <small class="text-warning"><i class="bi bi-star-fill"></i> 4.8</small>
+            </div>
+            <h5 class="card-title fs-6">Hà Nội - Vịnh Hạ Long - Đảo Titop</h5>
+            <ul class="list-unstyled small text-secondary mb-2">
+              <li><i class="bi bi-clock me-1 text-vt-blue"></i> 3 ngày 2 đêm</li>
+              <li><i class="bi bi-people me-1 text-vt-blue"></i> Còn 12 chỗ</li>
+            </ul>
+            <p class="sale-deadline mb-3"><i class="bi bi-hourglass-split"></i> Áp dụng đến 30/09/2026</p>
+            <div class="mt-auto d-flex justify-content-between align-items-center">
+              <div>
+                <span class="price-old">4.500.000đ</span><br>
+                <span class="price-new">3.600.000đ</span>
+              </div>
+              <a href="tour-detail.html" class="btn btn-vt-primary btn-sm px-3">Đặt ngay</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tour khuyến mãi 2 -->
+      <div class="col-md-6 col-xl-4">
+        <div class="card tour-card">
+          <div class="position-relative">
+            <img src="https://picsum.photos/seed/tour3/600/420" class="card-img-top" alt="Tour Đà Lạt">
+            <span class="sale-percent-badge">-25%</span>
+          </div>
+          <div class="card-body d-flex flex-column">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <small class="text-secondary"><i class="bi bi-geo-alt-fill text-vt-green"></i> Lâm Đồng</small>
+              <small class="text-warning"><i class="bi bi-star-fill"></i> 4.7</small>
+            </div>
+            <h5 class="card-title fs-6">Đà Lạt - Săn mây Cầu Đất</h5>
+            <ul class="list-unstyled small text-secondary mb-2">
+              <li><i class="bi bi-clock me-1 text-vt-blue"></i> 3 ngày 3 đêm</li>
+              <li><i class="bi bi-people me-1 text-vt-blue"></i> Còn 20 chỗ</li>
+            </ul>
+            <p class="sale-deadline mb-3"><i class="bi bi-hourglass-split"></i> Áp dụng đến 30/09/2026</p>
+            <div class="mt-auto d-flex justify-content-between align-items-center">
+              <div>
+                <span class="price-old">3.900.000đ</span><br>
+                <span class="price-new">2.925.000đ</span>
+              </div>
+              <a href="tour-detail.html" class="btn btn-vt-primary btn-sm px-3">Đặt ngay</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tour khuyến mãi 3 -->
+      <div class="col-md-6 col-xl-4">
+        <div class="card tour-card">
+          <div class="position-relative">
+            <img src="https://picsum.photos/seed/tour4/600/420" class="card-img-top" alt="Tour Phú Quốc">
+            <span class="sale-percent-badge">-15%</span>
+          </div>
+          <div class="card-body d-flex flex-column">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <small class="text-secondary"><i class="bi bi-geo-alt-fill text-vt-green"></i> Kiên Giang</small>
+              <small class="text-warning"><i class="bi bi-star-fill"></i> 4.6</small>
+            </div>
+            <h5 class="card-title fs-6">Phú Quốc - Hòn Thơm - Grand World</h5>
+            <ul class="list-unstyled small text-secondary mb-2">
+              <li><i class="bi bi-clock me-1 text-vt-blue"></i> 4 ngày 3 đêm</li>
+              <li><i class="bi bi-people me-1 text-vt-blue"></i> Còn 6 chỗ</li>
+            </ul>
+            <p class="sale-deadline mb-3"><i class="bi bi-hourglass-split"></i> Áp dụng đến 30/09/2026</p>
+            <div class="mt-auto d-flex justify-content-between align-items-center">
+              <div>
+                <span class="price-old">7.800.000đ</span><br>
+                <span class="price-new">6.630.000đ</span>
+              </div>
+              <a href="tour-detail.html" class="btn btn-vt-primary btn-sm px-3">Đặt ngay</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tour khuyến mãi 4 -->
+      <div class="col-md-6 col-xl-4">
+        <div class="card tour-card">
+          <div class="position-relative">
+            <img src="https://picsum.photos/seed/tour6/600/420" class="card-img-top" alt="Tour Miền Tây">
+            <span class="sale-percent-badge">-10%</span>
+          </div>
+          <div class="card-body d-flex flex-column">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <small class="text-secondary"><i class="bi bi-geo-alt-fill text-vt-green"></i> Cần Thơ</small>
+              <small class="text-warning"><i class="bi bi-star-fill"></i> 4.4</small>
+            </div>
+            <h5 class="card-title fs-6">Miền Tây - Chợ nổi Cái Răng</h5>
+            <ul class="list-unstyled small text-secondary mb-2">
+              <li><i class="bi bi-clock me-1 text-vt-blue"></i> 2 ngày 1 đêm</li>
+              <li><i class="bi bi-people me-1 text-vt-blue"></i> Còn 25 chỗ</li>
+            </ul>
+            <p class="sale-deadline mb-3"><i class="bi bi-hourglass-split"></i> Áp dụng đến 30/09/2026</p>
+            <div class="mt-auto d-flex justify-content-between align-items-center">
+              <div>
+                <span class="price-old">1.990.000đ</span><br>
+                <span class="price-new">1.791.000đ</span>
+              </div>
+              <a href="tour-detail.html" class="btn btn-vt-primary btn-sm px-3">Đặt ngay</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tour khuyến mãi 5 -->
+      <div class="col-md-6 col-xl-4">
+        <div class="card tour-card">
+          <div class="position-relative">
+            <img src="https://picsum.photos/seed/tour9/600/420" class="card-img-top" alt="Tour Nha Trang">
+            <span class="sale-percent-badge">-12%</span>
+          </div>
+          <div class="card-body d-flex flex-column">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <small class="text-secondary"><i class="bi bi-geo-alt-fill text-vt-green"></i> Khánh Hoà</small>
+              <small class="text-warning"><i class="bi bi-star-fill"></i> 4.3</small>
+            </div>
+            <h5 class="card-title fs-6">Nha Trang - Đảo Bình Ba</h5>
+            <ul class="list-unstyled small text-secondary mb-2">
+              <li><i class="bi bi-clock me-1 text-vt-blue"></i> 2 ngày 1 đêm</li>
+              <li><i class="bi bi-people me-1 text-vt-blue"></i> Còn 22 chỗ</li>
+            </ul>
+            <p class="sale-deadline mb-3"><i class="bi bi-hourglass-split"></i> Áp dụng đến 30/09/2026</p>
+            <div class="mt-auto d-flex justify-content-between align-items-center">
+              <div>
+                <span class="price-old">3.010.000đ</span><br>
+                <span class="price-new">2.650.000đ</span>
+              </div>
+              <a href="tour-detail.html" class="btn btn-vt-primary btn-sm px-3">Đặt ngay</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card mời xem thêm -->
+      <div class="col-md-6 col-xl-4">
+        <div class="card tour-card h-100 border-2 border-dashed d-flex align-items-center justify-content-center text-center p-4"
+             style="border-style:dashed !important; border-color:#dbe3ec !important; box-shadow:none;">
+          <div>
+            <i class="bi bi-compass text-vt-blue" style="font-size:2.2rem;"></i>
+            <h5 class="fs-6 mt-3 mb-2">Chưa tìm được ưu đãi ưng ý?</h5>
+            <p class="text-secondary small mb-3">Khám phá toàn bộ danh sách tour, lọc theo giá và điểm đến.</p>
+            <a href="tours.html" class="btn btn-outline-primary btn-sm px-3">Xem tất cả tour</a>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /row -->
+  </div>
+</section>
+
+<!-- =======================================================
+     FOOTER  (GIỐNG HỆT CÁC TRANG KHÁC)
+     ======================================================= -->
+<footer class="pt-5 pb-4">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4 col-md-6">
+        <h5 class="fw-bold mb-3"><i class="bi bi-airplane-engines-fill me-1"></i>VietTour</h5>
+        <p class="small">
+          Nền tảng đặt tour du lịch trọn gói trong nước: lịch trình rõ ràng, giá minh bạch,
+          xác nhận đơn nhanh chóng qua email.
+        </p>
+        <div class="mt-3">
+          <a href="#" class="social-icon"><i class="bi bi-facebook"></i></a>
+          <a href="#" class="social-icon"><i class="bi bi-instagram"></i></a>
+          <a href="#" class="social-icon"><i class="bi bi-youtube"></i></a>
+          <a href="#" class="social-icon"><i class="bi bi-tiktok"></i></a>
+        </div>
+      </div>
+
+      <div class="col-lg-2 col-md-6 col-6">
+        <h5 class="fs-6 mb-3">Liên kết</h5>
+        <ul class="list-unstyled small d-grid gap-2">
+          <li><a href="index.html">Trang chủ</a></li>
+          <li><a href="tours.html">Danh sách tour</a></li>
+          <li><a href="khuyen-mai.html" class="nav-link-sale d-inline-flex align-items-center gap-1">Khuyến mãi <span class="badge-hot">HOT</span></a></li>
+          <li><a href="blog.html">Cẩm nang du lịch</a></li>
+          <li><a href="contact.html">Liên hệ</a></li>
+        </ul>
+      </div>
+
+      <div class="col-lg-3 col-md-6 col-6">
+        <h5 class="fs-6 mb-3">Điểm đến</h5>
+        <ul class="list-unstyled small d-grid gap-2">
+          <li><a href="tours.html">Tour miền Bắc</a></li>
+          <li><a href="tours.html">Tour miền Trung</a></li>
+          <li><a href="tours.html">Tour miền Nam</a></li>
+          <li><a href="tours.html">Tour biển đảo</a></li>
+        </ul>
+      </div>
+
+      <div class="col-lg-3 col-md-6">
+        <h5 class="fs-6 mb-3">Liên hệ</h5>
+        <ul class="list-unstyled small d-grid gap-2">
+          <li><i class="bi bi-geo-alt me-2"></i>123 Nguyễn Văn Cừ, Quận 5, TP.HCM</li>
+          <li><i class="bi bi-telephone me-2"></i>1900 1234</li>
+          <li><i class="bi bi-envelope me-2"></i>support@viettour.vn</li>
+          <li><i class="bi bi-clock me-2"></i>8:00 - 21:00 hằng ngày</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="border-secondary my-4">
+    <p class="text-center small mb-0">
+      © 2026 VietTour - Đồ án môn Lập trình Web và Ứng dụng.
+    </p>
+  </div>
+</footer>
+
+<button id="btnTop" title="Lên đầu trang"><i class="bi bi-arrow-up"></i></button>
+
+<!-- ===== Bootstrap 5 JS Bundle ===== -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- ===== JavaScript của trang: đồng hồ đếm ngược ===== -->
+<script>
+  /* Đếm ngược đến thời điểm kết thúc chương trình khuyến mãi (dữ liệu mẫu) */
+  const saleEndDate = new Date('2026-09-30T23:59:59').getTime();
+
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = saleEndDate - now;
+
+    const cdDays    = document.getElementById('cdDays');
+    const cdHours   = document.getElementById('cdHours');
+    const cdMinutes = document.getElementById('cdMinutes');
+    const cdSeconds = document.getElementById('cdSeconds');
+
+    if (distance < 0) {
+      // Hết hạn khuyến mãi: hiển thị 00 cho tất cả
+      cdDays.textContent = cdHours.textContent = cdMinutes.textContent = cdSeconds.textContent = '00';
+      clearInterval(countdownTimer);
+      return;
+    }
+
+    const days    = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours   = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    // Thêm số 0 phía trước nếu nhỏ hơn 10 (ví dụ: 5 -> "05")
+    cdDays.textContent    = String(days).padStart(2, '0');
+    cdHours.textContent   = String(hours).padStart(2, '0');
+    cdMinutes.textContent = String(minutes).padStart(2, '0');
+    cdSeconds.textContent = String(seconds).padStart(2, '0');
+  }
+
+  updateCountdown(); // Gọi ngay lần đầu để không bị chậm 1 giây
+  const countdownTimer = setInterval(updateCountdown, 1000);
+
+  /* ---------- Nút lên đầu trang ---------- */
+  const btnTop = document.getElementById('btnTop');
+  window.addEventListener('scroll', function () {
+    btnTop.style.display = window.scrollY > 400 ? 'block' : 'none';
+  });
+  btnTop.addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+
+</body>
+</html>
