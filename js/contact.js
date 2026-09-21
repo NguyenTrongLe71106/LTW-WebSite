@@ -1,8 +1,4 @@
-/* ==========================================================
-   VietTour - contact.js
-   JavaScript riêng cho trang contact.html (Liên hệ)
-   Validate form kiểm tra rỗng + đúng định dạng SĐT/Email
-   ========================================================== */
+/* Validate form kiểm tra rỗng + đúng định dạng SĐT/Email*/
 
 const contactForm  = document.getElementById('contactForm');
 const successAlert = document.getElementById('contactSuccessAlert');

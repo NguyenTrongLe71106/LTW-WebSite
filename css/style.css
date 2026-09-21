@@ -1,16 +1,12 @@
-/* ==========================================================
-   VietTour - File CSS dùng chung cho cả 5 trang
-   Đồ án môn Lập trình Web và Ứng dụng
-   ========================================================== */
 
-/* ===== 1. BIẾN MÀU & THIẾT LẬP CHUNG ===== */
+/* 1. BIẾN MÀU & THIẾT LẬP CHUN */
 :root {
-  --vt-blue: #0d6efd;      /* Xanh dương chủ đạo */
+  --vt-blue: #0d6efd;      
   --vt-blue-dark: #0a4fb3;
-  --vt-green: #10a37f;     /* Xanh lá nhấn */
-  --vt-navy: #0b2545;      /* Xanh đậm cho footer & tiêu đề */
-  --vt-light: #f4f8fb;     /* Nền xám xanh nhạt */
-  --vt-orange: #ff6b35;    /* Màu khuyến mãi */
+  --vt-green: #10a37f;    
+  --vt-navy: #0b2545;      
+  --vt-light: #f4f8fb;     
+  --vt-orange: #ff6b35;    
 }
 
 body {
@@ -43,19 +39,19 @@ a { text-decoration: none; }
 }
 .btn-vt-green:hover { background-color: #0c8266; border-color: #0c8266; color: #fff; }
 
-/* ===== 2. NAVBAR ===== */
+/* 2. NAVBAR  */
 .navbar-brand span { color: var(--vt-green); }
 .navbar .nav-link { font-weight: 500; color: var(--vt-navy); }
 .navbar .nav-link:hover,
 .navbar .nav-link.active { color: var(--vt-blue); }
 .navbar .nav-link.active { border-bottom: 2px solid var(--vt-blue); }
 
-/* ===== 2b. MỤC "KHUYẾN MÃI" NỔI BẬT TRÊN NAVBAR ===== */
+/*2b. MỤC "KHUYẾN MÃI" NỔI BẬT TRÊN NAVBAR */
 .nav-link-sale {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  color: #E53935 !important;   /* Đỏ cam nổi bật, khác hẳn các mục còn lại */
+  color: #E53935 !important;   
   font-weight: 700 !important;
 }
 /* Đặt SAU rule ".navbar .nav-link:hover" phía trên nên sẽ được ưu tiên áp dụng */
@@ -83,12 +79,12 @@ a { text-decoration: none; }
   0%, 100% { transform: scale(1); opacity: 1; }
   50%      { transform: scale(1.12); opacity: .85; }
 }
-/* Tôn trọng người dùng đã bật "giảm hiệu ứng chuyển động" trong hệ điều hành */
+
 @media (prefers-reduced-motion: reduce) {
   .badge-hot { animation: none; }
 }
 
-/* ===== 3. CAROUSEL (BANNER TRANG CHỦ) ===== */
+/* 3. CAROUSEL (BANNER TRANG CHỦ) */
 .hero-carousel .carousel-item {
   height: 520px;
   background-size: cover;
@@ -116,7 +112,7 @@ a { text-decoration: none; }
   .hero-carousel .carousel-caption h2 { font-size: 1.7rem; }
 }
 
-/* ===== 4. FORM TÌM KIẾM NHANH ===== */
+/*  4. FORM TÌM KIẾM NHANH*/
 .search-box {
   background: #fff;
   border-radius: 14px;
@@ -128,7 +124,7 @@ a { text-decoration: none; }
 }
 .search-box label { font-size: .85rem; font-weight: 600; color: var(--vt-navy); }
 
-/* ===== 5. CARD TOUR ===== */
+/*  5. CARD TOUR */
 .tour-card {
   border: none;
   border-radius: 14px;
@@ -148,7 +144,7 @@ a { text-decoration: none; }
 .price-old { text-decoration: line-through; color: #9aa5b1; font-size: .9rem; }
 .price-new { color: var(--vt-orange); font-size: 1.3rem; font-weight: 700; }
 
-/* ===== 6. CARD ĐIỂM ĐẾN ===== */
+/*6. CARD ĐIỂM ĐẾN  */
 .destination-card {
   position: relative;
   border-radius: 14px;
@@ -164,7 +160,7 @@ a { text-decoration: none; }
   padding: 16px; color: #fff;
 }
 
-/* ===== 7. KHỐI TIỆN ÍCH / CAM KẾT ===== */
+/*7. KHỐI TIỆN ÍCH / CAM KẾT */
 .feature-icon {
   width: 60px; height: 60px;
   display: flex; align-items: center; justify-content: center;
@@ -175,7 +171,7 @@ a { text-decoration: none; }
   margin: 0 auto 14px;
 }
 
-/* ===== 8. FOOTER ===== */
+/*  8. FOOTER  */
 footer { background-color: var(--vt-navy); color: #c8d3e0; }
 footer h5 { color: #fff; }
 footer a { color: #c8d3e0; }
@@ -189,7 +185,7 @@ footer a:hover { color: #fff; }
 }
 .social-icon:hover { background: var(--vt-blue); }
 
-/* ===== 9. NÚT LÊN ĐẦU TRANG ===== */
+/* 9. NÚT LÊN ĐẦU TRANG*/
 #btnTop {
   position: fixed; right: 20px; bottom: 20px;
   display: none; z-index: 99;
@@ -197,11 +193,9 @@ footer a:hover { color: #fff; }
   border: none; background: var(--vt-blue); color: #fff;
 }
 
-/* ==========================================================
-   PHẦN RIÊNG CHO TRANG tours.html
-   ========================================================== */
+/* tours.html*/
 
-/* ===== 10. BANNER TIÊU ĐỀ TRANG (dùng lại được cho blog / contact) ===== */
+/*  10. BANNER TIÊU ĐỀ TRANG (dùng lại được cho blog / contact)  */
 .page-header {
   position: relative;
   padding: 70px 0;
@@ -219,7 +213,7 @@ footer a:hover { color: #fff; }
 .page-header .breadcrumb-item.active { color: #fff; }
 .page-header .breadcrumb-item + .breadcrumb-item::before { color: #9fb6d4; }
 
-/* ===== 11. SIDEBAR BỘ LỌC ===== */
+/* 11. SIDEBAR BỘ LỌC */
 .filter-sidebar {
   background: #fff;
   border: 1px solid #e6edf4;
@@ -242,28 +236,26 @@ footer a:hover { color: #fff; }
   .filter-sticky { position: sticky; top: 100px; }
 }
 
-/* ===== 12. THANH SẮP XẾP & KẾT QUẢ ===== */
+/*  12. THANH SẮP XẾP & KẾT QUẢ*/
 .result-bar {
   background: var(--vt-light);
   border-radius: 12px;
   padding: 14px 18px;
 }
 
-/* ===== 13. PHÂN TRANG ===== */
+/*13. PHÂN TRANG*/
 .pagination .page-link { color: var(--vt-blue); border-radius: 8px; margin: 0 3px; border: 1px solid #e0e8f0; }
 .pagination .page-item.active .page-link { background-color: var(--vt-blue); border-color: var(--vt-blue); color: #fff; }
 
-/* ===== 14. THÔNG BÁO KHÔNG CÓ KẾT QUẢ ===== */
+/* 14. THÔNG BÁO KHÔNG CÓ KẾT QUẢ  */
 #noResult { display: none; }
 
-/* ==========================================================
-   PHẦN RIÊNG CHO TRANG tour-detail.html
-   ========================================================== */
+/* tour-detail.html */
 
-/* ===== 15. THANH BREADCRUMB CHI TIẾT ===== */
+/* 15. THANH BREADCRUMB CHI TIẾT */
 .detail-breadcrumb { background: var(--vt-light); padding: 14px 0; }
 
-/* ===== 16. GALLERY ẢNH ===== */
+/* 16. GALLERY ẢNH  */
 .gallery-main { border-radius: 14px; overflow: hidden; height: 440px; }
 .gallery-main img { width: 100%; height: 100%; object-fit: cover; }
 @media (max-width: 767.98px) { .gallery-main { height: 260px; } }
@@ -276,10 +268,10 @@ footer a:hover { color: #fff; }
 .gallery-thumbs img:hover { opacity: 1; }
 .gallery-thumbs img.active-thumb { border-color: var(--vt-blue); opacity: 1; }
 
-/* ===== 17. KHỐI TIÊU ĐỀ TOUR ===== */
+/* 17. KHỐI TIÊU ĐỀ TOUR */
 .detail-title-bar { border-bottom: 1px solid #e6edf4; padding-bottom: 18px; margin-bottom: 24px; }
 
-/* ===== 18. TAB THÔNG TIN TOUR ===== */
+/* 18. TAB THÔNG TIN TOUR  */
 .nav-tabs-custom { border-bottom: 1px solid #e6edf4; }
 .nav-tabs-custom .nav-link {
   color: var(--vt-navy); font-weight: 600; border: none;
@@ -288,7 +280,7 @@ footer a:hover { color: #fff; }
 }
 .nav-tabs-custom .nav-link.active { color: var(--vt-blue); border-bottom-color: var(--vt-blue); }
 
-/* ===== 19. ACCORDION LỊCH TRÌNH ===== */
+/*  19. ACCORDION LỊCH TRÌNH */
 .day-accordion .accordion-button { font-weight: 600; color: var(--vt-navy); }
 .day-accordion .accordion-button:not(.collapsed) { color: var(--vt-blue); background-color: rgba(13,110,253,.06); box-shadow: none; }
 .day-accordion .accordion-button:focus { box-shadow: none; }
@@ -299,12 +291,12 @@ footer a:hover { color: #fff; }
   margin-right: 10px; flex-shrink: 0;
 }
 
-/* ===== 20. DỊCH VỤ BAO GỒM / KHÔNG BAO GỒM ===== */
+/*  20. DỊCH VỤ BAO GỒM / KHÔNG BAO GỒM */
 .included-list li, .excluded-list li { padding: 6px 0; }
 .included-list i { color: var(--vt-green); margin-right: 8px; }
 .excluded-list i { color: #dc3545; margin-right: 8px; }
 
-/* ===== 21. KHỐI ĐẶT TOUR (SIDEBAR PHẢI) ===== */
+/*  21. KHỐI ĐẶT TOUR (SIDEBAR PHẢI) */
 .booking-card { border: 1px solid #e6edf4; border-radius: 16px; padding: 24px; box-shadow: 0 10px 30px rgba(11,37,69,.08); }
 @media (min-width: 992px) { .booking-sticky { position: sticky; top: 100px; } }
 
@@ -316,11 +308,9 @@ footer a:hover { color: #fff; }
 .price-breakdown { font-size: .92rem; }
 .price-breakdown .row + .row { margin-top: 6px; }
 
-/* ==========================================================
-   PHẦN RIÊNG CHO TRANG blog.html
-   ========================================================== */
+/* PHẦN RIÊNG CHO TRANG blog.html */
 
-/* ===== 22. Ô TÌM KIẾM & BỘ LỌC CHỦ ĐỀ ===== */
+/* 22. Ô TÌM KIẾM & BỘ LỌC CHỦ ĐỀ  */
 .category-filter .btn {
   border-radius: 30px; font-size: .85rem; font-weight: 600;
   margin-right: 8px; margin-bottom: 8px; border-color: #dbe3ec; color: var(--vt-navy);
@@ -329,7 +319,7 @@ footer a:hover { color: #fff; }
   background: var(--vt-blue); color: #fff; border-color: var(--vt-blue);
 }
 
-/* ===== 23. CARD BÀI VIẾT ===== */
+/*  23. CARD BÀI VIẾT */
 .article-card { position: relative; }
 .article-card .card-img-top { height: 200px; object-fit: cover; }
 .article-category-badge {
@@ -339,7 +329,7 @@ footer a:hover { color: #fff; }
 }
 .article-meta { font-size: .82rem; color: #8a97a6; }
 
-/* ===== 24. SIDEBAR CẨM NANG ===== */
+/* 24. SIDEBAR CẨM NANG  */
 .sidebar-card { background: #fff; border: 1px solid #e6edf4; border-radius: 14px; padding: 20px; }
 .sidebar-post { display: flex; gap: 12px; padding-bottom: 14px; margin-bottom: 14px; border-bottom: 1px solid #edf2f7; }
 .sidebar-post:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
@@ -356,11 +346,9 @@ footer a:hover { color: #fff; }
 
 #noArticleResult { display: none; }
 
-/* ==========================================================
-   PHẦN RIÊNG CHO TRANG contact.html
-   ========================================================== */
+/* PHẦN RIÊNG CHO TRANG contact.html*/
 
-/* ===== 25. KHỐI THÔNG TIN LIÊN HỆ ===== */
+/* 25. KHỐI THÔNG TIN LIÊN HỆ  */
 .contact-info-card {
   background: #fff; border: 1px solid #e6edf4; border-radius: 16px;
   padding: 30px; box-shadow: 0 10px 30px rgba(11,37,69,.08);
@@ -383,11 +371,11 @@ footer a:hover { color: #fff; }
 }
 .social-icon-alt:hover { background: var(--vt-blue); color: #fff; }
 
-/* ===== 26. BẢN ĐỒ NHÚNG ===== */
+/*  26. BẢN ĐỒ NHÚNG  */
 .map-wrapper { border-radius: 16px; overflow: hidden; border: 1px solid #e6edf4; }
 .map-wrapper iframe { width: 100%; height: 260px; border: 0; display: block; }
 
-/* ===== 27. FORM LIÊN HỆ ===== */
+/*  27. FORM LIÊN HỆ  */
 .contact-form-card {
   background: #fff; border: 1px solid #e6edf4; border-radius: 16px;
   padding: 30px; box-shadow: 0 10px 30px rgba(11,37,69,.08); height: 100%;
@@ -399,11 +387,9 @@ footer a:hover { color: #fff; }
 }
 #contactSuccessAlert { display: none; }
 
-/* ==========================================================
-   PHẦN RIÊNG CHO TRANG khuyen-mai.html
-   ========================================================== */
+/* PHẦN RIÊNG CHO TRANG khuyen-mai.html */
 
-/* ===== 28. BANNER TIÊU ĐỀ MÀU ĐỎ CHO TRANG KHUYẾN MÃI ===== */
+/* 28. BANNER TIÊU ĐỀ MÀU ĐỎ CHO TRANG KHUYẾN MÃI  */
 .page-header-sale {
   position: relative;
   padding: 60px 0 50px;
@@ -421,7 +407,7 @@ footer a:hover { color: #fff; }
 .page-header-sale .breadcrumb-item.active { color: #fff; }
 .page-header-sale .breadcrumb-item + .breadcrumb-item::before { color: #ffb8a3; }
 
-/* ===== 29. ĐỒNG HỒ ĐẾM NGƯỢC ===== */
+/* 29. ĐỒNG HỒ ĐẾM NGƯỢC  */
 .countdown-box {
   display: flex; gap: 12px; flex-wrap: wrap;
 }
@@ -436,7 +422,7 @@ footer a:hover { color: #fff; }
 .countdown-item .num { font-size: 1.7rem; font-weight: 700; line-height: 1; color: #fff; }
 .countdown-item .label { font-size: .72rem; color: #ffe6de; text-transform: uppercase; letter-spacing: .5px; }
 
-/* ===== 30. NHÃN GIẢM GIÁ LỚN TRÊN CARD ===== */
+/* 30. NHÃN GIẢM GIÁ LỚN TRÊN CARD */
 .sale-percent-badge {
   position: absolute; top: 12px; left: 12px;
   background: linear-gradient(135deg, #FF4D4D, #E53935);

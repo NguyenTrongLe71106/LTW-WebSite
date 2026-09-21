@@ -1,7 +1,4 @@
-/* ==========================================================
-   VietTour - index.js
-   JavaScript riêng cho trang index.html (Trang chủ)
-   ========================================================== */
+/* JavaScript riêng cho trang index.html (Trang chủ)*/
 
 /* Xử lý form tìm kiếm nhanh: chuyển sang trang tours.html kèm từ khoá */
 document.getElementById('quickSearchForm').addEventListener('submit', function (e) {

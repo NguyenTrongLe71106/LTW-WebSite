@@ -1,10 +1,6 @@
-/* ==========================================================
-   VietTour - tour-detail.js
-   JavaScript riêng cho trang tour-detail.html (Chi tiết tour)
-   Xử lý gallery ảnh và form đặt tour (tính tiền, validate, modal)
-   ========================================================== */
+/* Xử lý gallery ảnh và form đặt tour (tính tiền, validate, modal)*/
 
-/* ---------- 1. Đổi ảnh lớn khi bấm vào thumbnail ---------- */
+/*  1. Đổi ảnh lớn khi bấm vào thumbnail */
 const mainImg = document.getElementById('mainGalleryImg');
 document.querySelectorAll('.gallery-thumbs img').forEach(function (thumb) {
   thumb.addEventListener('click', function () {
@@ -14,7 +10,7 @@ document.querySelectorAll('.gallery-thumbs img').forEach(function (thumb) {
   });
 });
 
-/* ---------- 2. Form đặt tour: tăng/giảm số lượng & tính tiền ---------- */
+/* 2. Form đặt tour: tăng/giảm số lượng & tính tiền */
 const PRICE_ADULT = 5450000;
 const PRICE_CHILD = Math.round(PRICE_ADULT * 0.7); // Trẻ em thu 70% giá người lớn
 
@@ -68,7 +64,7 @@ document.getElementById('childMinus').addEventListener('click', function () {
   }
 });
 
-/* ---------- 3. Xử lý khi bấm "Đặt Tour" ---------- */
+/* 3. Xử lý khi bấm "Đặt Tour"  */
 const bookingForm = document.getElementById('bookingForm');
 const departureSelect = document.getElementById('departureDate');
 const successModal = new bootstrap.Modal(document.getElementById('bookingSuccessModal'));

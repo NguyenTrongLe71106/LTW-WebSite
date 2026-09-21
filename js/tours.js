@@ -1,8 +1,4 @@
-/* ==========================================================
-   VietTour - tours.js
-   JavaScript riêng cho trang tours.html (Danh sách tour)
-   Xử lý lọc & sắp xếp (dữ liệu mẫu, chưa cần PHP)
-   ========================================================== */
+/* Xử lý lọc & sắp xếp (dữ liệu mẫu, chưa cần PHP)= */
 
 const tourGrid    = document.getElementById('tourGrid');
 const tourItems   = Array.from(document.querySelectorAll('.tour-item'));
@@ -13,7 +9,7 @@ const sortSelect  = document.getElementById('sortSelect');
 // Lưu thứ tự ban đầu để dùng cho lựa chọn "Mặc định"
 const originalOrder = tourItems.slice();
 
-/* ---------- 1. Đọc điều kiện lọc từ sidebar hoặc offcanvas ---------- */
+/* 1. Đọc điều kiện lọc từ sidebar hoặc offcanvas  */
 function getFilterValues(isMobile) {
   const kwEl = document.getElementById(isMobile ? 'filterKeywordM' : 'filterKeyword');
   const regionEls = document.querySelectorAll(isMobile ? '.filter-region-m:checked' : '.filter-region:checked');
@@ -28,7 +24,7 @@ function getFilterValues(isMobile) {
   };
 }
 
-/* ---------- 2. Lọc danh sách tour ---------- */
+/*  2. Lọc danh sách tour  */
 function applyFilter(isMobile) {
   const f = getFilterValues(isMobile);
   let count = 0;
@@ -71,7 +67,7 @@ function applyFilter(isMobile) {
   noResult.style.display = count === 0 ? 'block' : 'none';
 }
 
-/* ---------- 3. Sắp xếp danh sách tour ---------- */
+/*  3. Sắp xếp danh sách tour */
 function applySort() {
   const value = sortSelect.value;
   let sorted;
@@ -92,7 +88,7 @@ function applySort() {
   sorted.forEach(item => tourGrid.appendChild(item));
 }
 
-/* ---------- 4. Gắn sự kiện ---------- */
+/* 4. Gắn sự kiện  */
 document.getElementById('filterForm').addEventListener('submit', function (e) {
   e.preventDefault();
   applyFilter(false);
@@ -116,7 +112,7 @@ document.querySelectorAll('#filterForm, #filterFormMobile').forEach(form => {
 
 sortSelect.addEventListener('change', applySort);
 
-/* ---------- 5. Nhận từ khoá do trang chủ gửi sang qua URL ---------- */
+/*  5. Nhận từ khoá do trang chủ gửi sang qua URL */
 window.addEventListener('DOMContentLoaded', function () {
   const params = new URLSearchParams(window.location.search);
   const keyword = params.get('keyword');

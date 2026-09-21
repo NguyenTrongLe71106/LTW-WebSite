@@ -1,8 +1,4 @@
-/* ==========================================================
-   VietTour - khuyen-mai.js
-   JavaScript riêng cho trang khuyen-mai.html (Khuyến mãi)
-   Đồng hồ đếm ngược đến hạn kết thúc ưu đãi
-   ========================================================== */
+/* Đồng hồ đếm ngược đến hạn kết thúc ưu đãi */
 
 /* Đếm ngược đến thời điểm kết thúc chương trình khuyến mãi (dữ liệu mẫu) */
 const saleEndDate = new Date('2026-09-30T23:59:59').getTime();
