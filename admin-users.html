@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Người dùng &amp; Liên hệ - VietTour Admin</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/admin.css">
+  <style>
+    .adm-tabs .nav-link { color: #6c757d; font-weight: 600; font-size: 14.5px; border: none; border-bottom: 3px solid transparent; padding: 12px 18px; }
+    .adm-tabs .nav-link.active { color: var(--adm-primary); border-bottom-color: var(--adm-primary); background: none; }
+    .adm-tabs { border-bottom: 1px solid var(--adm-border); }
+    .adm-count { background: #eef1f6; color: #3d4a63; font-size: 12px; font-weight: 700; padding: 2px 9px; border-radius: 20px; margin-left: 6px; }
+    .adm-count.hot { background: var(--adm-primary); color: #fff; }
+    .adm-initial { width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 14px; flex-shrink: 0; }
+    .adm-topic { background: #eef1f6; color: #3d4a63; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 20px; white-space: nowrap; }
+    .adm-msg-preview { max-width: 190px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #5d6779; }
+    .adm-msg-full { background: var(--adm-bg); border-radius: 10px; padding: 14px 16px; font-size: 14.5px; line-height: 1.6; white-space: pre-wrap; }
+    tr.js-msg-row[data-status="new"] td:not(:last-child) { font-weight: 600; }
+    #msgBody td:nth-child(1) { white-space: nowrap; }
+    .adm-status-tabs .btn { border-radius: 30px; font-size: 13.5px; font-weight: 600; border: 1px solid var(--adm-border); background: #fff; color: #555; }
+    .adm-status-tabs .btn.active { background: var(--adm-primary); border-color: var(--adm-primary); color: #fff; }
+  </style>
+</head>
+<body>
+
+<div class="adm-wrapper">
+  <div class="adm-overlay" id="admOverlay"></div>
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="adm-sidebar" id="admSidebar">
+    <div class="adm-sidebar__logo">
+      <i class="bi bi-airplane-engines-fill"></i>
+      <span>Viet<span>Tour</span> <small style="font-size:11px;font-weight:400;color:#8f97ab;display:block;">Trang quản trị</small></span>
+    </div>
+    <nav class="adm-nav">
+      <p class="adm-nav__section-title">Tổng quan</p>
+      <a href="admin-dashboard.html" class="adm-nav__link"><i class="bi bi-grid-1x2-fill"></i> Tổng quan</a>
+      <p class="adm-nav__section-title">Quản lý nghiệp vụ</p>
+      <a href="admin-tours.html" class="adm-nav__link"><i class="bi bi-map-fill"></i> Quản lý Tour</a>
+      <a href="admin-bookings.html" class="adm-nav__link"><i class="bi bi-journal-check"></i> Đơn đặt tour<span class="adm-nav__badge">3</span></a>
+      <a href="admin-blog.html" class="adm-nav__link"><i class="bi bi-newspaper"></i> Bài viết Blog</a>
+      <a href="admin-users.html" class="adm-nav__link active"><i class="bi bi-people-fill"></i> Người dùng &amp; Liên hệ<span class="adm-nav__badge" id="sidebarMsgBadge">7</span></a>
+      <p class="adm-nav__section-title">Khác</p>
+      <a href="../index.html" class="adm-nav__link"><i class="bi bi-box-arrow-up-right"></i> Xem trang FrontEnd</a>
+    </nav>
+    <div class="adm-sidebar__footer">
+      <a href="admin-login.html"><i class="bi bi-box-arrow-left"></i> Đăng xuất</a>
+    </div>
+  </aside>
+
+  <!-- ============ NỘI DUNG CHÍNH ============ -->
+  <div class="adm-main">
+    <header class="adm-topbar">
+      <div class="d-flex align-items-center gap-3">
+        <button class="adm-topbar__toggle" id="admToggleSidebar"><i class="bi bi-list"></i></button>
+        <div class="adm-topbar__title">Người dùng &amp; Liên hệ
+          <small>Bảng <code>users</code> và <code>contact_messages</code></small>
+        </div>
+      </div>
+      <div class="adm-topbar__right">
+        <button class="adm-topbar__icon-btn"><i class="bi bi-bell-fill"></i><span class="dot"></span></button>
+        <div class="adm-topbar__admin">
+          <img src="https://picsum.photos/seed/admin-avatar/100/100" alt="Admin">
+          <div>
+            <div class="adm-topbar__admin-name">Admin VietTour</div>
+            <div class="adm-topbar__admin-role">Quản trị viên</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="adm-content">
+      <div class="adm-panel">
+
+        <ul class="nav adm-tabs px-3 pt-2" role="tablist">
+          <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-users" type="button">Người dùng<span class="adm-count" id="userTabCount">9</span></button></li>
+          <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-messages" type="button">Tin nhắn liên hệ<span class="adm-count hot" id="msgTabCount">7</span></button></li>
+        </ul>
+
+        <div class="tab-content">
+
+          <!-- ============ TAB NGUOI DUNG (bang users) ============ -->
+          <div class="tab-pane fade show active" id="tab-users">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 p-3">
+              <div class="d-flex flex-wrap gap-2">
+                <div class="input-group" style="width:270px;">
+                  <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
+                  <input type="text" class="form-control" id="userSearch" placeholder="Tên, email hoặc SĐT...">
+                </div>
+                <select class="form-select" id="userRoleFilter" style="width:170px;">
+                  <option value="all" selected>Tất cả vai trò</option>
+                  <option value="admin">Quản trị viên</option>
+                  <option value="customer">Khách hàng</option>
+                </select>
+              </div>
+              <button type="button" class="btn btn-adm-primary" id="btnNewUser"><i class="bi bi-person-plus-fill me-1"></i>Thêm người dùng</button>
+            </div>
+
+            <div class="table-responsive">
+              <table class="adm-table">
+                <thead>
+                  <tr>
+                    <th>Họ và tên</th>
+                    <th>Email</th>
+                    <th>Số điện thoại</th>
+                    <th>Vai trò</th>
+                    <th>Ngày tạo</th>
+                    <th style="width:120px;">Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody id="userBody">
+
+                  <tr class="js-user-row" data-name="Admin VietTour" data-email="admin@viettour.vn" data-phone="0901 000 001" data-role="admin" data-protected="true">
+                    <td><div class="d-flex align-items-center gap-2"><span class="adm-initial" style="background:#bd1e2d;">A</span><span class="fw-semibold">Admin VietTour</span></div></td>
+                    <td>admin@viettour.vn</td><td>0901 000 001</td>
+                    <td><span class="adm-badge adm-badge--admin">Quản trị viên</span></td><td>01/06/2026</td>
+                    <td>
+                      <button type="button" class="adm-action-btn edit js-edit-user" title="Sửa"><i class="bi bi-pencil"></i></button>
+                      <button type="button" class="adm-action-btn delete js-delete-user" title="Xoá"><i class="bi bi-trash3"></i></button>
+                    </td>
+                  </tr>
+
+                  <tr class="js-user-row" data-name="Đỗ Quốc Huy" data-email="huy.do@viettour.vn" data-phone="0901 000 002" data-role="admin">
+                    <td><div class="d-flex align-items-center gap-2"><span class="adm-initial" style="background:#1c2431;">Đ</span><span class="fw-semibold">Đỗ Quốc Huy</span></div></td>
+                    <td>huy.do@viettour.vn</td><td>0901 000 002</td>
+                    <td><span class="adm-badge adm-badge--admin">Quản trị viên</span></td><td>01/06/2026</td>
+                    <td>
+                      <button type="button" class="adm-action-btn edit js-edit-user" title="Sửa"><i class="bi bi-pencil"></i></button>
+                      <button type="button" class="adm-action-btn delete js-delete-user" title="Xoá"><i class="bi bi-trash3"></i></button>
+                    </td>
+                  </tr>
+
+                  <tr class="js-user-row" data-name="Nguyễn Thị Lan" data-email="lan.nguyen@gmail.com" data-phone="0901 234 567" data-role="customer">
+                    <td><div class="d-flex align-items-center gap-2"><span class="adm-initial" style="background:#1565c0;">N</span><span class="fw-semibold">Nguyễn Thị Lan</span></div></td>
+                    <td>lan.nguyen@gmail.com</td><td>0901 234 567</td>
+                    <td><span class="adm-badge adm-badge--customer">Khách hàng</span></td><td>15/08/2026</td>
+                    <td>
+                      <button type="button" class="adm-action-btn edit js-edit-user" title="Sửa"><i class="bi bi-pencil"></i></button>
+                      <button type="button" class="adm-action-btn delete js-delete-user" title="Xoá"><i class="bi bi-trash3"></i></button>
+                    </td>
+                  </tr>
+
+                  <tr class="js-user-row" data-name="Trần Văn Hùng" data-email="hung.tran@gmail.com" data-phone="0912 345 678" data-role="customer">
+                    <td><div class="d-flex align-items-center gap-2"><span class="adm-initial" style="background:#2e7d32;">T</span><span class="fw-semibold">Trần Văn Hùng</span></div></td>
+                    <td>hung.tran@gmail.com</td><td>0912 345 678</td>
+                    <td><span class="adm-badge adm-badge--customer">Khách hàng</span></td><td>18/08/2026</td>
+                    <td>
+                      <button type="button" class="adm-action-btn edit js-edit-user" title="Sửa"><i class="bi bi-pencil"></i></button>
+                      <button type="button" class="adm-action-btn delete js-delete-user" title="Xoá"><i class="bi bi-trash3"></i></button>
+                    </td>
+                  </tr>
+
+                  <tr class="js-user-row" data-name="Phạm Thu Hà" data-email="ha.pham@gmail.com" data-phone="0938 456 789" data-role="customer">
+                    <td><div class="d-flex align-items-center gap-2"><span class="adm-initial" style="background:#ef6c00;">P</span><span class="fw-semibold">Phạm Thu Hà</span></div></td>
+                    <td>ha.pham@gmail.com</td><td>0938 456 789</td>
+                    <td><span class="adm-badge adm-badge--customer">Khách hàng</span></td><td>02/09/2026</td>
+                    <td>
+                      <button type="button" class="adm-action-btn edit js-edit-user" title="Sửa"><i class="bi bi-pencil"></i></button>
+                      <button type="button" class="adm-action-btn delete js-delete-user" title="Xoá"><i class="bi bi-trash3"></i></button>
+                    </td>
+                  </tr>
+
+                  <tr class="js-user-row" data-name="Lê Minh Khôi" data-email="khoi.le@gmail.com" data-phone="0977 567 890" data-role="customer">
+                    <td><div class="d-flex align-items-center gap-2"><span class="adm-initial" style="background:#6a1b9a;">L</span><span class="fw-semibold">Lê Minh Khôi</span></div></td>
+                    <td>khoi.le@gmail.com</td><td>0977 567 890</td>
+                    <td><span class="adm-badge adm-badge--customer">Khách hàng</span></td><td>05/09/2026</td>
+                    <td>
+                      <button type="button" class="adm-action-btn edit js-edit-user" title="Sửa"><i class="bi bi-pencil"></i></button>
+                      <button type="button" class="adm-action-btn delete js-delete-user" title="Xoá"><i class="bi bi-trash3"></i></button>
+                    </td>
+                  </tr>
+
+                  <tr class="js-user-row" data-name="Đỗ Ngọc Ánh" data-email="anh.do@gmail.com" data-phone="0966 678 901" data-role="customer">
+                    <td><div class="d-flex align-items-center gap-2"><span class="adm-initial" style="background:#00838f;">Đ</span><span class="fw-semibold">Đỗ Ngọc Ánh</span></div></td>
+                    <td>anh.do@gmail.com</td><td>0966 678 901</td>
+                    <td><span class="adm-badge adm-badge--customer">Khách hàng</span></td><td>08/09/2026</td>
+                    <td>
+                      <button type="button" class="adm-action-btn edit js-edit-user" title="Sửa"><i class="bi bi-pencil"></i></button>
+                      <button type="button" class="adm-action-btn delete js-delete-user" title="Xoá"><i class="bi bi-trash3"></i></button>
+                    </td>
+                  </tr>
+
+                  <tr class="js-user-row" data-name="Vũ Thị Mai" data-email="mai.vu@gmail.com" data-phone="0905 789 012" data-role="customer">
+                    <td><div class="d-flex align-items-center gap-2"><span class="adm-initial" style="background:#ad1457;">V</span><span class="fw-semibold">Vũ Thị Mai</span></div></td>
+                    <td>mai.vu@gmail.com</td><td>0905 789 012</td>
+                    <td><span class="adm-badge adm-badge--customer">Khách hàng</span></td><td>10/09/2026</td>
+                    <td>
+                      <button type="button" class="adm-action-btn edit js-edit-user" title="Sửa"><i class="bi bi-pencil"></i></button>
+                      <button type="button" class="adm-action-btn delete js-delete-user" title="Xoá"><i class="bi bi-trash3"></i></button>
+                    </td>
+                  </tr>
+
+                  <tr class="js-user-row" data-name="Hoàng Đức Anh" data-email="anh.hoang@gmail.com" data-phone="0918 890 123" data-role="customer">
+                    <td><div class="d-flex align-items-center gap-2"><span class="adm-initial" style="background:#455a64;">H</span><span class="fw-semibold">Hoàng Đức Anh</span></div></td>
+                    <td>anh.hoang@gmail.com</td><td>0918 890 123</td>
+                    <td><span class="adm-badge adm-badge--customer">Khách hàng</span></td><td>10/09/2026</td>
+                    <td>
+                      <button type="button" class="adm-action-btn edit js-edit-user" title="Sửa"><i class="bi bi-pencil"></i></button>
+                      <button type="button" class="adm-action-btn delete js-delete-user" title="Xoá"><i class="bi bi-trash3"></i></button>
+                    </td>
+                  </tr>
+
+                  <tr id="userEmptyRow" style="display:none;">
+                    <td colspan="6" class="text-center text-secondary py-5"><i class="bi bi-inbox fs-2 d-block mb-2"></i>Không tìm thấy người dùng phù hợp.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- ============ TAB TIN NHAN LIEN HE (bang contact_messages) ============ -->
+          <div class="tab-pane fade" id="tab-messages">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 p-3">
+              <div class="adm-status-tabs d-flex flex-wrap gap-2" id="msgStatusTabs">
+                <button type="button" class="btn active" data-status="all">Tất cả</button>
+                <button type="button" class="btn" data-status="new">Chưa xử lý</button>
+                <button type="button" class="btn" data-status="done">Đã xử lý</button>
+              </div>
+              <div class="input-group" style="width:270px;">
+                <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
+                <input type="text" class="form-control" id="msgSearch" placeholder="Tên người gửi, nội dung...">
+              </div>
+            </div>
+
+            <div class="table-responsive">
+              <table class="adm-table">
+                <thead>
+                  <tr>
+                    <th>Người gửi</th>
+                    <th>Chủ đề</th>
+                    <th>Nội dung</th>
+                    <th>Thời gian</th>
+                    <th>Trạng thái</th>
+                    <th style="width:120px;">Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody id="msgBody">
+
+                  <tr class="js-msg-row" data-status="new" data-name="Ngô Bảo Châu" data-phone="0903 111 222" data-email="chau.ngo@gmail.com" data-topic="Hỗ trợ đơn hàng đã đặt" data-time="28/09/2026 08:45"
+                      data-message="Cho mình hỏi về chính sách hủy tour Hạ Long. Nếu hủy trước ngày khởi hành 5 ngày thì được hoàn bao nhiêu phần trăm tiền tour ạ?">
+                    <td><p class="mb-0">Ngô Bảo Châu</p><small class="text-secondary fw-normal">0903 111 222</small></td>
+                    <td><span class="adm-topic">Hỗ trợ đơn hàng</span></td>
+                    <td><div class="adm-msg-preview">Cho mình hỏi về chính sách hủy tour Hạ Long. Nếu hủy trước ngày khởi hành 5 ngày...</div></td>
+                    <td>28/09/2026 08:45</td>
+                    <td><span class="adm-badge adm-badge--new js-msg-badge">Chưa xử lý</span></td>
+                    <td>
+                      <button type="button" class="adm-action-btn edit js-view-msg" title="Xem"><i class="bi bi-eye"></i></button>
+                      <button type="button" class="adm-action-btn delete js-delete-msg" title="Xoá"><i class="bi bi-trash3"></i></button>
+                    </td>
+                  </tr>
+
+                  <tr class="js-msg-row" data-status="new" data-name="Trịnh Công Sang" data-phone="0904 222 333" data-email="sang.trinh@congtyabc.vn" data-topic="Hợp tác doanh nghiệp" data-time="28/09/2026 06:30"
+                      data-message="Công ty chúng tôi muốn hợp tác tổ chức tour team building cho 60 nhân viên vào cuối năm. Nhờ VietTour gửi báo giá giúp.">
+                    <td><p class="mb-0">Trịnh Công Sang</p><small class="text-secondary fw-normal">0904 222 333</small></td>
+                    <td><span class="adm-topic">Hợp tác doanh nghiệp</span></td>
+                    <td><div class="adm-msg-preview">Công ty chúng tôi muốn hợp tác tổ chức tour team building cho 60 nhân viên...</div></td>
+                    <td>28/09/2026 06:30</td>
+                    <td><span class="adm-badge adm-badge--new js-msg-badge">Chưa xử lý</span></td>
+                    <td>
+                      <button type="button" class="adm-action-btn edit js-view-msg" title="Xem"><i class="bi bi-eye"></i></button>
+                      <button type="button" class="adm-action-btn delete js-delete-msg" title="Xoá"><i class="bi bi-trash3"></i></button>
+                    </td>
+                  </tr>
+
+                  <tr class="js-msg-row" data-status="done" data-name="Lâm Quốc Việt" data-phone="0905 333 444" data-email="viet.lam@gmail.com" data-topic="Góp ý / Khiếu nại" data-time="27/09/2026 20:10"
+                      data-message="Cảm ơn đội ngũ đã hỗ trợ tận tình trong chuyến đi Đà Nẵng vừa rồi. Hướng dẫn viên rất nhiệt tình và chu đáo.">
+                    <td><p class="mb-0">Lâm Quốc Việt</p><small class="text-secondary fw-normal">0905 333 444</small></td>
+                    <td><span class="adm-topic">Góp ý / Khiếu nại</span></td>
+                    <td><div class="adm-msg-preview">Cảm ơn đội ngũ đã hỗ trợ tận tình trong chuyến đi Đà Nẵng vừa rồi...</div></td>
+                    <td>27/09/2026 20:10</td>
+                    <td><span class="adm-badge adm-badge--done js-msg-badge">Đã xử lý</span></td>
+                    <td>
+                      <button type="button" class="adm-action-btn edit js-view-msg" title="Xem"><i class="bi bi-eye"></i></button>
+                      <button type="button" class="adm-action-btn delete js-delete-msg" title="Xoá"><i class="bi bi-trash3"></i></button>
+                    </td>
+                  </tr>
+
+                  <tr class="js-msg-row" data-status="new" data-name="Nguyễn Hải Yến" data-phone="0906 444 555" data-email="yen.nguyen@gmail.com" data-topic="Tư vấn đặt tour mới" data-time="27/09/2026 15:22"
+                      data-message="Mình muốn đi Phú Quốc 4 ngày 3 đêm cho gia đình 5 người (có 2 bé) vào tháng 10, tư vấn giúp mình lịch trình và giá phù hợp.">
+                    <td><p class="mb-0">Nguyễn Hải Yến</p><small class="text-secondary fw-normal">0906 444 555</small></td>
+                    <td><span class="adm-topic">Tư vấn đặt tour</span></td>
+                    <td><div class="adm-msg-preview">Mình muốn đi Phú Quốc 4 ngày 3 đêm cho gia đình 5 người (có 2 bé) vào tháng 10...</div></td>
+                    <td>27/09/2026 15:22</td>
+                    <td><span class="adm-badge adm-badge--new js-msg-badge">Chưa xử lý</span></td>
+                    <td>
+                      <button type="button" class="adm-action-btn edit js-view-msg" title="Xem"><i class="bi bi-eye"></i></button>
+                      <button type="button" class="adm-action-btn delete js-delete-msg" title="Xoá"><i class="bi bi-trash3"></i></button>
+                    </td>
+                  </tr>
+
+                  <tr class="js-msg-row" data-status="new" data-name="Phan Anh Tuấn" data-phone="0907 555 666" data-email="tuan.phan@gmail.com" data-topic="Hỗ trợ đơn hàng đã đặt" data-time="27/09/2026 10:05"
+                      data-message="Mình đã chuyển khoản đặt tour Đà Lạt từ hôm qua nhưng vẫn chưa nhận được email xác nhận. Nhờ bên mình kiểm tra giúp.">
+                    <td><p class="mb-0">Phan Anh Tuấn</p><small class="text-secondary fw-normal">0907 555 666</small></td>
+                    <td><span class="adm-topic">Hỗ trợ đơn hàng</span></td>
+                    <td><div class="adm-msg-preview">Mình đã chuyển khoản đặt tour Đà Lạt từ hôm qua nhưng vẫn chưa nhận được email...</div></td>
+                    <td>27/09/2026 10:05</td>
+                    <td><span class="adm-badge adm-badge--new js-msg-badge">Chưa xử lý</span></td>
+                    <td>
+                      <button type="button" class="adm-action-btn edit js-view-msg" title="Xem"><i class="bi bi-eye"></i></button>
+                      <button type="button" class="adm-action-btn delete js-delete-msg" title="Xoá"><i class="bi bi-trash3"></i></button>
+                    </td>
+                  </tr>
+
+                  <tr class="js-msg-row" data-status="new" data-name="Đặng Minh Châu" data-phone="0908 666 777" data-email="chau.dang@truongabc.edu.vn" data-topic="Khác" data-time="26/09/2026 16:40"
+                      data-message="Website có nhận đặt tour theo yêu cầu riêng cho đoàn học sinh khoảng 45 em không? Mong được tư vấn thêm.">
+                    <td><p class="mb-0">Đặng Minh Châu</p><small class="text-secondary fw-normal">0908 666 777</small></td>
+                    <td><span class="adm-topic">Khác</span></td>
+                    <td><div class="adm-msg-preview">Website có nhận đặt tour theo yêu cầu riêng cho đoàn học sinh khoảng 45 em không?</div></td>
+                    <td>26/09/2026 16:40</td>
+                    <td><span class="adm-badge adm-badge--new js-msg-badge">Chưa xử lý</span></td>
+                    <td>
+                      <button type="button" class="adm-action-btn edit js-view-msg" title="Xem"><i class="bi bi-eye"></i></button>
+                      <button type="button" class="adm-action-btn delete js-delete-msg" title="Xoá"><i class="bi bi-trash3"></i></button>
+                    </td>
+                  </tr>
+
+                  <tr class="js-msg-row" data-status="new" data-name="Bùi Thu Thảo" data-phone="0909 777 888" data-email="thao.bui@gmail.com" data-topic="Tư vấn đặt tour mới" data-time="26/09/2026 09:12"
+                      data-message="Tour Sa Pa tháng 11 còn nhận khách không ạ? Mình đi 2 người lớn, muốn biết thời tiết và lịch khởi hành.">
+                    <td><p class="mb-0">Bùi Thu Thảo</p><small class="text-secondary fw-normal">0909 777 888</small></td>
+                    <td><span class="adm-topic">Tư vấn đặt tour</span></td>
+                    <td><div class="adm-msg-preview">Tour Sa Pa tháng 11 còn nhận khách không ạ? Mình đi 2 người lớn...</div></td>
+                    <td>26/09/2026 09:12</td>
+                    <td><span class="adm-badge adm-badge--new js-msg-badge">Chưa xử lý</span></td>
+                    <td>
+                      <button type="button" class="adm-action-btn edit js-view-msg" title="Xem"><i class="bi bi-eye"></i></button>
+                      <button type="button" class="adm-action-btn delete js-delete-msg" title="Xoá"><i class="bi bi-trash3"></i></button>
+                    </td>
+                  </tr>
+
+                  <tr class="js-msg-row" data-status="new" data-name="Võ Thanh Sơn" data-phone="0910 888 999" data-email="son.vo@gmail.com" data-topic="Góp ý / Khiếu nại" data-time="25/09/2026 21:30"
+                      data-message="Trang web tải ảnh hơi chậm khi dùng điện thoại, mong bên mình cải thiện để trải nghiệm tốt hơn.">
+                    <td><p class="mb-0">Võ Thanh Sơn</p><small class="text-secondary fw-normal">0910 888 999</small></td>
+                    <td><span class="adm-topic">Góp ý / Khiếu nại</span></td>
+                    <td><div class="adm-msg-preview">Trang web tải ảnh hơi chậm khi dùng điện thoại, mong bên mình cải thiện...</div></td>
+                    <td>25/09/2026 21:30</td>
+                    <td><span class="adm-badge adm-badge--new js-msg-badge">Chưa xử lý</span></td>
+                    <td>
+                      <button type="button" class="adm-action-btn edit js-view-msg" title="Xem"><i class="bi bi-eye"></i></button>
+                      <button type="button" class="adm-action-btn delete js-delete-msg" title="Xoá"><i class="bi bi-trash3"></i></button>
+                    </td>
+                  </tr>
+
+                  <tr class="js-msg-row" data-status="done" data-name="Lý Hoàng Yến" data-phone="0911 999 000" data-email="yen.ly@gmail.com" data-topic="Hỗ trợ đơn hàng đã đặt" data-time="24/09/2026 14:00"
+                      data-message="Mình cần đổi ngày khởi hành tour Miền Tây từ 05/10 sang 12/10 được không ạ?">
+                    <td><p class="mb-0">Lý Hoàng Yến</p><small class="text-secondary fw-normal">0911 999 000</small></td>
+                    <td><span class="adm-topic">Hỗ trợ đơn hàng</span></td>
+                    <td><div class="adm-msg-preview">Mình cần đổi ngày khởi hành tour Miền Tây từ 05/10 sang 12/10 được không ạ?</div></td>
+                    <td>24/09/2026 14:00</td>
+                    <td><span class="adm-badge adm-badge--done js-msg-badge">Đã xử lý</span></td>
+                    <td>
+                      <button type="button" class="adm-action-btn edit js-view-msg" title="Xem"><i class="bi bi-eye"></i></button>
+                      <button type="button" class="adm-action-btn delete js-delete-msg" title="Xoá"><i class="bi bi-trash3"></i></button>
+                    </td>
+                  </tr>
+
+                  <tr class="js-msg-row" data-status="done" data-name="Tạ Quang Vinh" data-phone="0912 000 111" data-email="vinh.ta@gmail.com" data-topic="Tư vấn đặt tour mới" data-time="24/09/2026 08:50"
+                      data-message="Nhờ tư vấn tour Hà Giang 5 ngày 4 đêm cho nhóm 6 người, đi vào cuối tháng 10.">
+                    <td><p class="mb-0">Tạ Quang Vinh</p><small class="text-secondary fw-normal">0912 000 111</small></td>
+                    <td><span class="adm-topic">Tư vấn đặt tour</span></td>
+                    <td><div class="adm-msg-preview">Nhờ tư vấn tour Hà Giang 5 ngày 4 đêm cho nhóm 6 người, đi vào cuối tháng 10.</div></td>
+                    <td>24/09/2026 08:50</td>
+                    <td><span class="adm-badge adm-badge--done js-msg-badge">Đã xử lý</span></td>
+                    <td>
+                      <button type="button" class="adm-action-btn edit js-view-msg" title="Xem"><i class="bi bi-eye"></i></button>
+                      <button type="button" class="adm-action-btn delete js-delete-msg" title="Xoá"><i class="bi bi-trash3"></i></button>
+                    </td>
+                  </tr>
+
+                  <tr id="msgEmptyRow" style="display:none;">
+                    <td colspan="6" class="text-center text-secondary py-5"><i class="bi bi-inbox fs-2 d-block mb-2"></i>Không có tin nhắn phù hợp.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODAL THEM / SUA NGUOI DUNG ============ -->
+<div class="modal fade" id="userModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border-radius:14px;">
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold" id="userModalTitle">Thêm người dùng</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label" for="umName">Họ và tên <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" id="umName">
+        </div>
+        <div class="row g-3 mb-3">
+          <div class="col-md-7">
+            <label class="form-label" for="umEmail">Email <span class="text-danger">*</span></label>
+            <input type="email" class="form-control" id="umEmail">
+          </div>
+          <div class="col-md-5">
+            <label class="form-label" for="umPhone">Số điện thoại</label>
+            <input type="tel" class="form-control" id="umPhone">
+          </div>
+        </div>
+        <div class="row g-3">
+          <div class="col-md-5">
+            <label class="form-label" for="umRole">Vai trò</label>
+            <select class="form-select" id="umRole">
+              <option value="customer">Khách hàng</option>
+              <option value="admin">Quản trị viên</option>
+            </select>
+          </div>
+          <div class="col-md-7">
+            <label class="form-label" for="umPassword">Mật khẩu <span class="text-danger" id="umPwRequired">*</span></label>
+            <input type="password" class="form-control" id="umPassword" autocomplete="new-password">
+            <small class="text-secondary" id="umPwHint">Tối thiểu 6 ký tự. Hệ thống sẽ lưu dạng mã hoá (password_hash).</small>
+          </div>
+        </div>
+        <div class="text-danger small mt-3 d-none" id="umError"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-adm" data-bs-dismiss="modal">Huỷ</button>
+        <button type="button" class="btn btn-adm-primary" id="umSaveBtn"><i class="bi bi-check-lg me-1"></i>Lưu</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODAL XEM TIN NHAN ============ -->
+<div class="modal fade" id="msgModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border-radius:14px;">
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold">Tin nhắn liên hệ</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex justify-content-between align-items-start mb-3">
+          <div>
+            <p class="mb-0 fw-bold" id="mmName"></p>
+            <small class="text-secondary"><span id="mmPhone"></span> &nbsp;•&nbsp; <span id="mmEmail"></span></small>
+          </div>
+          <small class="text-secondary text-end" id="mmTime"></small>
+        </div>
+        <p class="mb-2"><span class="text-secondary small">Chủ đề:</span> <span class="adm-topic" id="mmTopic"></span></p>
+        <div class="adm-msg-full" id="mmMessage"></div>
+      </div>
+      <div class="modal-footer">
+        <a href="#" class="btn btn-outline-adm" id="mmReply"><i class="bi bi-reply-fill me-1"></i>Trả lời qua email</a>
+        <button type="button" class="btn btn-adm-primary" id="mmDoneBtn"><i class="bi bi-check2-circle me-1"></i>Đánh dấu đã xử lý</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/admin-login.js"></script>
+<script src="js/admin-users.js"></script>
+</body>
+</html>
