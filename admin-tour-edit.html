@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thêm / Sửa Tour - VietTour Admin</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/admin.css">
+  <style>
+    .adm-tabs .nav-link { color: #6c757d; font-weight: 600; font-size: 14.5px; border: none; border-bottom: 3px solid transparent; padding: 12px 18px; }
+    .adm-tabs .nav-link.active { color: var(--adm-primary); border-bottom-color: var(--adm-primary); background: none; }
+    .adm-tabs { border-bottom: 1px solid var(--adm-border); }
+    .adm-repeat-row { border: 1px solid var(--adm-border); border-radius: 10px; padding: 16px; margin-bottom: 14px; position: relative; background: #fbfbfc; }
+    .adm-repeat-row .adm-remove-row { position: absolute; top: 10px; right: 10px; }
+    .adm-day-badge { width: 30px; height: 30px; border-radius: 50%; background: var(--adm-primary); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; }
+    .adm-img-thumb { position: relative; border-radius: 10px; overflow: hidden; height: 130px; }
+    .adm-img-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .adm-img-thumb .adm-img-remove { position: absolute; top: 6px; right: 6px; width: 28px; height: 28px; border-radius: 50%; background: rgba(0,0,0,.55); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 13px; border: none; }
+    .adm-img-thumb .adm-img-main-badge { position: absolute; bottom: 6px; left: 6px; background: var(--adm-primary); color: #fff; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 20px; }
+    .adm-upload-box { border: 2px dashed #d5d9e2; border-radius: 10px; height: 130px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #8a94a6; cursor: pointer; }
+    .adm-upload-box:hover { border-color: var(--adm-primary); color: var(--adm-primary); }
+  </style>
+</head>
+<body>
+
+<div class="adm-wrapper">
+  <div class="adm-overlay" id="admOverlay"></div>
+
+  <!--   SIDEBAR   -->
+  <aside class="adm-sidebar" id="admSidebar">
+    <div class="adm-sidebar__logo">
+      <i class="bi bi-airplane-engines-fill"></i>
+      <span>Viet<span>Tour</span> <small style="font-size:11px;font-weight:400;color:#8f97ab;display:block;">Trang quản trị</small></span>
+    </div>
+    <nav class="adm-nav">
+      <p class="adm-nav__section-title">Tổng quan</p>
+      <a href="admin-dashboard.html" class="adm-nav__link"><i class="bi bi-grid-1x2-fill"></i> Tổng quan</a>
+      <p class="adm-nav__section-title">Quản lý nghiệp vụ</p>
+      <a href="admin-tours.html" class="adm-nav__link active"><i class="bi bi-map-fill"></i> Quản lý Tour</a>
+      <a href="admin-bookings.html" class="adm-nav__link"><i class="bi bi-journal-check"></i> Đơn đặt tour<span class="adm-nav__badge">3</span></a>
+      <a href="admin-blog.html" class="adm-nav__link"><i class="bi bi-newspaper"></i> Bài viết Blog</a>
+      <a href="admin-users.html" class="adm-nav__link"><i class="bi bi-people-fill"></i> Người dùng &amp; Liên hệ<span class="adm-nav__badge">7</span></a>
+      <p class="adm-nav__section-title">Khác</p>
+      <a href="../index.html" class="adm-nav__link"><i class="bi bi-box-arrow-up-right"></i> Xem trang FrontEnd</a>
+    </nav>
+    <div class="adm-sidebar__footer">
+      <a href="admin-login.html"><i class="bi bi-box-arrow-left"></i> Đăng xuất</a>
+    </div>
+  </aside>
+
+  <!--   NỘI DUNG CHÍNH   -->
+  <div class="adm-main">
+    <header class="adm-topbar">
+      <div class="d-flex align-items-center gap-3">
+        <button class="adm-topbar__toggle" id="admToggleSidebar"><i class="bi bi-list"></i></button>
+        <div class="adm-topbar__title">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-1" style="font-size:13px;">
+              <li class="breadcrumb-item"><a href="admin-tours.html" class="text-secondary">Quản lý Tour</a></li>
+              <li class="breadcrumb-item active">Sửa Tour</li>
+            </ol>
+          </nav>
+          Vịnh Hạ Long - Đảo Titop
+        </div>
+      </div>
+      <div class="adm-topbar__right">
+        <a href="admin-tours.html" class="btn btn-outline-adm">Huỷ</a>
+        <button type="submit" form="tourForm" class="btn btn-adm-primary"><i class="bi bi-check-lg me-1"></i>Lưu thay đổi</button>
+      </div>
+    </header>
+
+    <div class="adm-content">
+      <form id="tourForm" onsubmit="return false;">
+        <div class="adm-panel">
+          <!--   TAB NAV   -->
+          <ul class="nav adm-tabs px-3 pt-2" id="tourTab" role="tablist">
+            <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-general" type="button">1. Thông tin chung</button></li>
+            <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-itinerary" type="button">2. Lịch trình</button></li>
+            <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-services" type="button">3. Dịch vụ</button></li>
+            <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-departures" type="button">4. Đợt khởi hành</button></li>
+            <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-images" type="button">5. Hình ảnh</button></li>
+          </ul>
+
+          <div class="tab-content">
+
+            <!--   TAB 1: THONG TIN CHUNG (bang tours)   -->
+            <div class="tab-pane fade show active adm-panel__body" id="tab-general">
+              <div class="row g-3">
+                <div class="col-md-8">
+                  <label class="form-label">Tên tour <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" value="Hà Nội - Vịnh Hạ Long - Đảo Titop">
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">Khu vực <span class="text-danger">*</span></label>
+                  <select class="form-select">
+                    <option>Miền Bắc</option>
+                    <option>Miền Trung</option>
+                    <option>Miền Nam</option>
+                  </select>
+                </div>
+
+                <div class="col-md-8">
+                  <label class="form-label">Đường dẫn SEO (slug)</label>
+                  <input type="text" class="form-control" value="vinh-ha-long-dao-titop">
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">Số ngày</label>
+                  <input type="number" class="form-control" value="3" min="1">
+                </div>
+
+                <div class="col-md-4">
+                  <label class="form-label">Giá người lớn (đ)</label>
+                  <input type="number" class="form-control" value="3600000" step="1000">
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">Giá trẻ em (đ)</label>
+                  <input type="number" class="form-control" value="2520000" step="1000">
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">Đánh giá (1 - 5 sao)</label>
+                  <input type="number" class="form-control" value="4.8" min="1" max="5" step="0.1">
+                </div>
+
+                <div class="col-12">
+                  <label class="form-label">Mô tả chi tiết</label>
+                  <textarea class="form-control" rows="5">Hành trình khám phá Vịnh Hạ Long - di sản thiên nhiên thế giới. Du khách sẽ được ngủ đêm trên du thuyền 5 sao, chèo kayak khám phá hang Luồn và thưởng thức hải sản tươi ngon ngay trên vịnh.</textarea>
+                </div>
+
+                <div class="col-12">
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" id="isFeatured" checked>
+                    <label class="form-check-label fw-semibold" for="isFeatured">Hiển thị nổi bật ở Trang chủ</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!--   TAB 2: LICH TRINH (bang itineraries)   -->
+            <div class="tab-pane fade adm-panel__body" id="tab-itinerary">
+              <p class="text-secondary small mb-3">Mỗi dòng tương ứng 1 bản ghi trong bảng <code>itineraries</code> (liên kết <code>tour_id</code>).</p>
+
+              <div id="itineraryList">
+                <div class="adm-repeat-row">
+                  <button type="button" class="btn btn-sm adm-action-btn delete adm-remove-row" title="Xoá ngày này"><i class="bi bi-trash3"></i></button>
+                  <div class="d-flex align-items-center gap-2 mb-2">
+                    <span class="adm-day-badge">1</span>
+                    <input type="text" class="form-control" style="max-width:420px;" value="Đón khách - Du thuyền - Hang Luồn">
+                  </div>
+                  <textarea class="form-control" rows="2">Xe đón khách tại Hà Nội, khởi hành đi Hạ Long. Nhận phòng du thuyền, ăn trưa, chèo kayak khám phá hang Luồn. Ăn tối hải sản và ngắm hoàng hôn trên vịnh.</textarea>
+                </div>
+                <div class="adm-repeat-row">
+                  <button type="button" class="btn btn-sm adm-action-btn delete adm-remove-row" title="Xoá ngày này"><i class="bi bi-trash3"></i></button>
+                  <div class="d-flex align-items-center gap-2 mb-2">
+                    <span class="adm-day-badge">2</span>
+                    <input type="text" class="form-control" style="max-width:420px;" value="Đảo Titop - Hang Sửng Sốt">
+                  </div>
+                  <textarea class="form-control" rows="2">Ngắm bình minh trên vịnh, tham quan Đảo Titop, leo núi ngắm toàn cảnh. Khám phá Hang Sửng Sốt, trả phòng và về lại Hà Nội.</textarea>
+                </div>
+              </div>
+
+              <button type="button" class="btn btn-outline-adm" id="btnAddItinerary"><i class="bi bi-plus-lg me-1"></i>Thêm ngày</button>
+            </div>
+
+            <!--   TAB 3: DICH VU (bang tour_services)   -->
+            <div class="tab-pane fade adm-panel__body" id="tab-services">
+              <p class="text-secondary small mb-3">Bảng <code>tour_services</code> — phân loại theo cột <code>type</code> (included / excluded).</p>
+              <div class="row g-4">
+                <div class="col-md-6">
+                  <h6 class="fw-bold mb-3"><i class="bi bi-check-circle-fill text-success me-1"></i>Dịch vụ bao gồm</h6>
+                  <div id="includedList">
+                    <div class="input-group mb-2">
+                      <input type="text" class="form-control" value="Vé du thuyền 2 ngày 1 đêm, hạng phòng Deluxe">
+                      <button type="button" class="btn btn-outline-adm adm-remove-row"><i class="bi bi-x-lg"></i></button>
+                    </div>
+                    <div class="input-group mb-2">
+                      <input type="text" class="form-control" value="Ăn theo chương trình (5 bữa)">
+                      <button type="button" class="btn btn-outline-adm adm-remove-row"><i class="bi bi-x-lg"></i></button>
+                    </div>
+                    <div class="input-group mb-2">
+                      <input type="text" class="form-control" value="Hướng dẫn viên suốt tuyến, bảo hiểm du lịch">
+                      <button type="button" class="btn btn-outline-adm adm-remove-row"><i class="bi bi-x-lg"></i></button>
+                    </div>
+                  </div>
+                  <button type="button" class="btn btn-sm btn-outline-adm" id="btnAddIncluded"><i class="bi bi-plus-lg me-1"></i>Thêm dòng</button>
+                </div>
+                <div class="col-md-6">
+                  <h6 class="fw-bold mb-3"><i class="bi bi-x-circle-fill text-danger me-1"></i>Không bao gồm</h6>
+                  <div id="excludedList">
+                    <div class="input-group mb-2">
+                      <input type="text" class="form-control" value="Chi tiêu cá nhân ngoài chương trình">
+                      <button type="button" class="btn btn-outline-adm adm-remove-row"><i class="bi bi-x-lg"></i></button>
+                    </div>
+                    <div class="input-group mb-2">
+                      <input type="text" class="form-control" value="Đồ uống trong bữa ăn">
+                      <button type="button" class="btn btn-outline-adm adm-remove-row"><i class="bi bi-x-lg"></i></button>
+                    </div>
+                  </div>
+                  <button type="button" class="btn btn-sm btn-outline-adm" id="btnAddExcluded"><i class="bi bi-plus-lg me-1"></i>Thêm dòng</button>
+                </div>
+              </div>
+            </div>
+
+            <!--   TAB 4: DOT KHOI HANH (bang departures)   -->
+            <div class="tab-pane fade adm-panel__body pd-0" id="tab-departures">
+              <p class="text-secondary small px-3 pt-3 mb-2">Bảng <code>departures</code> — mỗi dòng là 1 đợt khởi hành cụ thể, dùng cho form đặt tour ở FrontEnd.</p>
+              <div class="table-responsive">
+                <table class="adm-table" id="departuresTable">
+                  <thead>
+                    <tr>
+                      <th>Ngày khởi hành</th>
+                      <th>Số chỗ còn nhận</th>
+                      <th style="width:70px;"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><input type="date" class="form-control" value="2026-10-02"></td>
+                      <td><input type="number" class="form-control" value="12" style="max-width:120px;"></td>
+                      <td><button type="button" class="adm-action-btn delete adm-remove-row"><i class="bi bi-trash3"></i></button></td>
+                    </tr>
+                    <tr>
+                      <td><input type="date" class="form-control" value="2026-10-09"></td>
+                      <td><input type="number" class="form-control" value="20" style="max-width:120px;"></td>
+                      <td><button type="button" class="adm-action-btn delete adm-remove-row"><i class="bi bi-trash3"></i></button></td>
+                    </tr>
+                    <tr>
+                      <td><input type="date" class="form-control" value="2026-10-16"></td>
+                      <td><input type="number" class="form-control" value="8" style="max-width:120px;"></td>
+                      <td><button type="button" class="adm-action-btn delete adm-remove-row"><i class="bi bi-trash3"></i></button></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="p-3">
+                <button type="button" class="btn btn-outline-adm" id="btnAddDeparture"><i class="bi bi-plus-lg me-1"></i>Thêm đợt khởi hành</button>
+              </div>
+            </div>
+
+            <!--   TAB 5: HINH ANH (bang tour_images)   -->
+            <div class="tab-pane fade adm-panel__body" id="tab-images">
+              <p class="text-secondary small mb-3">Bảng <code>tour_images</code> — đánh dấu 1 ảnh làm ảnh đại diện (<code>is_main</code>).</p>
+              <div class="row g-3" id="imageGrid">
+                <div class="col-6 col-md-3">
+                  <div class="adm-img-thumb">
+                    <img src="https://picsum.photos/seed/tour1/300/300" alt="">
+                    <span class="adm-img-main-badge">Ảnh đại diện</span>
+                    <button type="button" class="adm-img-remove"><i class="bi bi-x-lg"></i></button>
+                  </div>
+                </div>
+                <div class="col-6 col-md-3">
+                  <div class="adm-img-thumb">
+                    <img src="https://picsum.photos/seed/halong2/300/300" alt="">
+                    <button type="button" class="adm-img-remove"><i class="bi bi-x-lg"></i></button>
+                  </div>
+                </div>
+                <div class="col-6 col-md-3">
+                  <div class="adm-img-thumb">
+                    <img src="https://picsum.photos/seed/halong3/300/300" alt="">
+                    <button type="button" class="adm-img-remove"><i class="bi bi-x-lg"></i></button>
+                  </div>
+                </div>
+                <div class="col-6 col-md-3">
+                  <label class="adm-upload-box w-100 mb-0">
+                    <i class="bi bi-cloud-arrow-up fs-3 mb-1"></i>
+                    <span style="font-size:13px;">Tải ảnh lên</span>
+                    <input type="file" class="d-none" accept="image/*">
+                  </label>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-end gap-2 mt-3">
+          <a href="admin-tours.html" class="btn btn-outline-adm">Huỷ</a>
+          <button type="submit" class="btn btn-adm-primary"><i class="bi bi-check-lg me-1"></i>Lưu thay đổi</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/admin-main.js"></script>
+<script src="js/admin-tour-edit.js"></script>
+</body>
+</html>

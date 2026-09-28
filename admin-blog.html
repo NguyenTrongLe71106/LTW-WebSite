@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quản lý Bài viết Blog - VietTour Admin</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/admin.css">
+  <style>
+    .adm-tabs .nav-link { color: #6c757d; font-weight: 600; font-size: 14.5px; border: none; border-bottom: 3px solid transparent; padding: 12px 18px; }
+    .adm-tabs .nav-link.active { color: var(--adm-primary); border-bottom-color: var(--adm-primary); background: none; }
+    .adm-tabs { border-bottom: 1px solid var(--adm-border); }
+    .adm-cat-badge { background: #eef1f6; color: #3d4a63; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 20px; display: inline-block; }
+    .adm-thumb-preview { width: 100%; height: 150px; object-fit: cover; border-radius: 10px; border: 1px solid var(--adm-border); background: #f4f5f9; }
+  </style>
+</head>
+<body>
+
+<div class="adm-wrapper">
+  <div class="adm-overlay" id="admOverlay"></div>
+
+  <!--SIDEBAR -->
+  <aside class="adm-sidebar" id="admSidebar">
+    <div class="adm-sidebar__logo">
+      <i class="bi bi-airplane-engines-fill"></i>
+      <span>Viet<span>Tour</span> <small style="font-size:11px;font-weight:400;color:#8f97ab;display:block;">Trang quản trị</small></span>
+    </div>
+    <nav class="adm-nav">
+      <p class="adm-nav__section-title">Tổng quan</p>
+      <a href="admin-dashboard.html" class="adm-nav__link"><i class="bi bi-grid-1x2-fill"></i> Tổng quan</a>
+      <p class="adm-nav__section-title">Quản lý nghiệp vụ</p>
+      <a href="admin-tours.html" class="adm-nav__link"><i class="bi bi-map-fill"></i> Quản lý Tour</a>
+      <a href="admin-bookings.html" class="adm-nav__link"><i class="bi bi-journal-check"></i> Đơn đặt tour<span class="adm-nav__badge">3</span></a>
+      <a href="admin-blog.html" class="adm-nav__link active"><i class="bi bi-newspaper"></i> Bài viết Blog</a>
+      <a href="admin-users.html" class="adm-nav__link"><i class="bi bi-people-fill"></i> Người dùng &amp; Liên hệ<span class="adm-nav__badge">7</span></a>
+      <p class="adm-nav__section-title">Khác</p>
+      <a href="../index.html" class="adm-nav__link"><i class="bi bi-box-arrow-up-right"></i> Xem trang FrontEnd</a>
+    </nav>
+    <div class="adm-sidebar__footer">
+      <a href="admin-login.html"><i class="bi bi-box-arrow-left"></i> Đăng xuất</a>
+    </div>
+  </aside>
+
+  <!--nd chính -->
+  <div class="adm-main">
+    <header class="adm-topbar">
+      <div class="d-flex align-items-center gap-3">
+        <button class="adm-topbar__toggle" id="admToggleSidebar"><i class="bi bi-list"></i></button>
+        <div class="adm-topbar__title">Quản lý Bài viết Blog
+          <small>Bảng <code>blog_posts</code> và <code>blog_categories</code> — nội dung trang Cẩm nang du lịch</small>
+        </div>
+      </div>
+      <div class="adm-topbar__right">
+        <button class="adm-topbar__icon-btn"><i class="bi bi-bell-fill"></i><span class="dot"></span></button>
+        <div class="adm-topbar__admin">
+          <img src="https://picsum.photos/seed/admin-avatar/100/100" alt="Admin">
+          <div>
+            <div class="adm-topbar__admin-name">Admin VietTour</div>
+            <div class="adm-topbar__admin-role">Quản trị viên</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="adm-content">
+      <div class="adm-panel">
+
+        <ul class="nav adm-tabs px-3 pt-2" role="tablist">
+          <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-posts" type="button">Bài viết <span class="adm-cat-badge ms-1" id="postTabCount">9</span></button></li>
+          <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-categories" type="button">Danh mục <span class="adm-cat-badge ms-1" id="catTabCount">4</span></button></li>
+        </ul>
+
+        <div class="tab-content">
+
+          <!--  TAB BAI VIET  -->
+          <div class="tab-pane fade show active" id="tab-posts">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 p-3">
+              <div class="d-flex flex-wrap gap-2">
+                <div class="input-group" style="width:260px;">
+                  <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
+                  <input type="text" class="form-control" id="postSearch" placeholder="Tìm theo tiêu đề...">
+                </div>
+                <select class="form-select" id="postCategoryFilter" style="width:180px;">
+                  <option value="all" selected>Tất cả danh mục</option>
+                  <option value="kinh-nghiem">Kinh nghiệm</option>
+                  <option value="am-thuc">Ẩm thực</option>
+                  <option value="meo-du-lich">Mẹo du lịch</option>
+                  <option value="diem-den">Điểm đến</option>
+                </select>
+              </div>
+              <button type="button" class="btn btn-adm-primary" id="btnNewPost"><i class="bi bi-plus-lg me-1"></i>Viết bài mới</button>
+            </div>
+
+            <div class="table-responsive">
+              <table class="adm-table">
+                <thead>
+                  <tr>
+                    <th style="width:70px;"></th>
+                    <th>Tiêu đề</th>
+                    <th>Danh mục</th>
+                    <th>Tác giả</th>
+                    <th>Ngày xuất bản</th>
+                    <th style="width:120px;">Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody id="postBody">
+
+                  <tr class="js-post-row" data-category="kinh-nghiem" data-author="Minh Anh" data-published="2026-09-12T08:00"
+                      data-title="Kinh nghiệm ngủ đêm trên du thuyền Hạ Long"
+                      data-content="Chọn hạng phòng, mang gì theo và những lưu ý khi say sóng để có một đêm trên vịnh thật đáng nhớ.">
+                    <td><img src="https://picsum.photos/seed/blog1/100/100" class="adm-avatar-sm" style="border-radius:8px;" alt=""></td>
+                    <td class="fw-semibold">Kinh nghiệm ngủ đêm trên du thuyền Hạ Long</td>
+                    <td><span class="adm-cat-badge">Kinh nghiệm</span></td>
+                    <td>Minh Anh</td>
+                    <td>12/09/2026</td>
+                    <td>
+                      <button type="button" class="adm-action-btn edit js-edit-post" title="Sửa"><i class="bi bi-pencil"></i></button>
+                      <button type="button" class="adm-action-btn delete js-delete-post" title="Xoá"><i class="bi bi-trash3"></i></button>
+                    </td>
+                  </tr>
+
+                  <tr class="js-post-row" data-category="diem-den" data-author="Thu Trang" data-published="2026-09-05T09:30"
+                      data-title="Đi Đà Lạt mùa nào đẹp nhất trong năm?"
+                      data-content="So sánh thời tiết, mùa hoa và mức giá phòng theo từng tháng để bạn chọn thời điểm phù hợp nhất.">
+                    <td><img src="https://picsum.photos/seed/blog2/100/100" class="adm-avatar-sm" style="border-radius:8px;" alt=""></td>
+                    <td class="fw-semibold">Đi Đà Lạt mùa nào đẹp nhất trong năm?</td>
+                    <td><span class="adm-cat-badge">Điểm đến</span></td>
+                    <td>Thu Trang</td>
+                    <td>05/09/2026</td>
+                    <td>
+                      <button type="button" class="adm-action-btn edit js-edit-post" title="Sửa"><i class="bi bi-pencil"></i></button>
+                      <button type="button" class="adm-action-btn delete js-delete-post" title="Xoá"><i class="bi bi-trash3"></i></button>
+                    </td>
+                  </tr>
+
+                  <tr class="js-post-row" data-category="meo-du-lich" data-author="Hoàng Nam" data-published="2026-08-28T10:00"
+                      data-title="Sắp xếp hành lý cho chuyến đi 3 ngày"
+                      data-content="Danh sách đồ cần mang giúp bạn gọn nhẹ mà vẫn đủ dùng cho một chuyến đi ngắn ngày.">
+                    <td><img src="https://picsum.photos/seed/blog3/100/100" class="adm-avatar-sm" style="border-radius:8px;" alt=""></td>
+                    <td class="fw-semibold">Sắp xếp hành lý cho chuyến đi 3 ngày</td>
+                    <td><span class="adm-cat-badge">Mẹo du lịch</span></td>
+                    <td>Hoàng Nam</td>
+                    <td>28/08/2026</td>
+                    <td>
+                      <button type="button" class="adm-action-btn edit js-edit-post" title="Sửa"><i class="bi bi-pencil"></i></button>
+                      <button type="button" class="adm-action-btn delete js-delete-post" title="Xoá"><i class="bi bi-trash3"></i></button>
+                    </td>
+                  </tr>
+
+                  <tr class="js-post-row" data-category="am-thuc" data-author="Minh Anh" data-published="2026-08-20T15:00"
+                      data-title="Top 10 món ăn không thể bỏ qua khi đến Hội An"
+                      data-content="Từ cao lầu, bánh mì Phượng đến chè bắp - danh sách món ngon không thể bỏ lỡ.">
+                    <td><img src="https://picsum.photos/seed/blog4/100/100" class="adm-avatar-sm" style="border-radius:8px;" alt=""></td>
+                    <td class="fw-semibold">Top 10 món ăn không thể bỏ qua khi đến Hội An</td>
+                    <td><span class="adm-cat-badge">Ẩm thực</span></td>
+                    <td>Minh Anh</td>
+                    <td>20/08/2026</td>
+                    <td>
+                      <button type="button" class="adm-action-btn edit js-edit-post" title="Sửa"><i class="bi bi-pencil"></i></button>
+                      <button type="button" class="adm-action-btn delete js-delete-post" title="Xoá"><i class="bi bi-trash3"></i></button>
+                    </td>
+                  </tr>
+
+                  <tr class="js-post-row" data-category="kinh-nghiem" data-author="Gia Bảo" data-published="2026-08-15T07:45"
+                      data-title="Kinh nghiệm lặn ngắm san hô ở Phú Quốc cho người mới"
+                      data-content="Chọn điểm lặn, trang bị cần thiết và lưu ý an toàn dành cho người lần đầu thử lặn biển.">
+                    <td><img src="https://picsum.photos/seed/blog5/100/100" class="adm-avatar-sm" style="border-radius:8px;" alt=""></td>
+                    <td class="fw-semibold">Kinh nghiệm lặn ngắm san hô ở Phú Quốc cho người mới</td>
+                    <td><span class="adm-cat-badge">Kinh nghiệm</span></td>
+                    <td>Gia Bảo</td>
+                    <td>15/08/2026</td>
+                    <td>
+                      <button type="button" class="adm-action-btn edit js-edit-post" title="Sửa"><i class="bi bi-pencil"></i></button>
+                      <button type="button" class="adm-action-btn delete js-delete-post" title="Xoá"><i class="bi bi-trash3"></i></button>
+                    </td>
+                  </tr>
+
+                  <tr class="js-post-row" data-category="diem-den" data-author="Thu Trang" data-published="2026-08-08T11:20"
+                      data-title="Phú Yên - Điểm đến hoang sơ chưa bị du lịch hoá"
+                      data-content="Gành Đá Đĩa, Mũi Điện và những bãi biển vắng người mà bạn nên ghé trước khi quá đông khách.">
+                    <td><img src="https://picsum.photos/seed/blog6/100/100" class="adm-avatar-sm" style="border-radius:8px;" alt=""></td>
+                    <td class="fw-semibold">Phú Yên - Điểm đến hoang sơ chưa bị du lịch hoá</td>
+                    <td><span class="adm-cat-badge">Điểm đến</span></td>
+                    <td>Thu Trang</td>
+                    <td>08/08/2026</td>
+                    <td>
+                      <button type="button" class="adm-action-btn edit js-edit-post" title="Sửa"><i class="bi bi-pencil"></i></button>
+                      <button type="button" class="adm-action-btn delete js-delete-post" title="Xoá"><i class="bi bi-trash3"></i></button>
+                    </td>
+                  </tr>
+
+                  <tr class="js-post-row" data-category="meo-du-lich" data-author="Hoàng Nam" data-published="2026-08-01T09:00"
+                      data-title="5 mẹo tiết kiệm chi phí khi đi du lịch trong nước"
+                      data-content="Đặt vé sớm, đi lệch mùa cao điểm và các cách nhỏ giúp chuyến đi rẻ hơn đáng kể.">
+                    <td><img src="https://picsum.photos/seed/blog7/100/100" class="adm-avatar-sm" style="border-radius:8px;" alt=""></td>
+                    <td class="fw-semibold">5 mẹo tiết kiệm chi phí khi đi du lịch trong nước</td>
+                    <td><span class="adm-cat-badge">Mẹo du lịch</span></td>
+                    <td>Hoàng Nam</td>
+                    <td>01/08/2026</td>
+                    <td>
+                      <button type="button" class="adm-action-btn edit js-edit-post" title="Sửa"><i class="bi bi-pencil"></i></button>
+                      <button type="button" class="adm-action-btn delete js-delete-post" title="Xoá"><i class="bi bi-trash3"></i></button>
+                    </td>
+                  </tr>
+
+                  <tr class="js-post-row" data-category="am-thuc" data-author="Gia Bảo" data-published="2026-07-25T14:10"
+                      data-title="Đặc sản Tây Bắc: Nên mua gì mang về làm quà?"
+                      data-content="Từ thịt trâu gác bếp đến chè shan tuyết - gợi ý quà tặng đậm chất vùng cao.">
+                    <td><img src="https://picsum.photos/seed/blog8/100/100" class="adm-avatar-sm" style="border-radius:8px;" alt=""></td>
+                    <td class="fw-semibold">Đặc sản Tây Bắc: Nên mua gì mang về làm quà?</td>
+                    <td><span class="adm-cat-badge">Ẩm thực</span></td>
+                    <td>Gia Bảo</td>
+                    <td>25/07/2026</td>
+                    <td>
+                      <button type="button" class="adm-action-btn edit js-edit-post" title="Sửa"><i class="bi bi-pencil"></i></button>
+                      <button type="button" class="adm-action-btn delete js-delete-post" title="Xoá"><i class="bi bi-trash3"></i></button>
+                    </td>
+                  </tr>
+
+                  <tr class="js-post-row" data-category="kinh-nghiem" data-author="Minh Anh" data-published="2026-07-18T08:30"
+                      data-title="Kinh nghiệm đi Sa Pa tự túc cho người lần đầu"
+                      data-content="Lịch trình gợi ý, cách di chuyển và những điều cần biết trước khi chinh phục Fansipan.">
+                    <td><img src="https://picsum.photos/seed/blog9/100/100" class="adm-avatar-sm" style="border-radius:8px;" alt=""></td>
+                    <td class="fw-semibold">Kinh nghiệm đi Sa Pa tự túc cho người lần đầu</td>
+                    <td><span class="adm-cat-badge">Kinh nghiệm</span></td>
+                    <td>Minh Anh</td>
+                    <td>18/07/2026</td>
+                    <td>
+                      <button type="button" class="adm-action-btn edit js-edit-post" title="Sửa"><i class="bi bi-pencil"></i></button>
+                      <button type="button" class="adm-action-btn delete js-delete-post" title="Xoá"><i class="bi bi-trash3"></i></button>
+                    </td>
+                  </tr>
+
+                  <tr id="postEmptyRow" style="display:none;">
+                    <td colspan="6" class="text-center text-secondary py-5">
+                      <i class="bi bi-inbox fs-2 d-block mb-2"></i>Không tìm thấy bài viết phù hợp.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!--  TAB DANH MUC  -->
+          <div class="tab-pane fade" id="tab-categories">
+            <div class="d-flex justify-content-between align-items-center p-3">
+              <p class="mb-0 text-secondary small">Danh mục dùng để phân loại bài viết và tạo bộ lọc ở trang Cẩm nang.</p>
+              <button type="button" class="btn btn-adm-primary" id="btnNewCategory"><i class="bi bi-plus-lg me-1"></i>Thêm danh mục</button>
+            </div>
+            <div class="table-responsive">
+              <table class="adm-table">
+                <thead>
+                  <tr>
+                    <th style="width:70px;">ID</th>
+                    <th>Tên danh mục</th>
+                    <th>Slug (đường dẫn SEO)</th>
+                    <th>Số bài viết</th>
+                    <th style="width:120px;">Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody id="categoryBody">
+                  <tr class="js-cat-row" data-slug="kinh-nghiem" data-name="Kinh nghiệm">
+                    <td>1</td><td class="fw-semibold">Kinh nghiệm</td><td><code>kinh-nghiem</code></td><td class="js-cat-count">3</td>
+                    <td>
+                      <button type="button" class="adm-action-btn edit js-edit-cat" title="Sửa"><i class="bi bi-pencil"></i></button>
+                      <button type="button" class="adm-action-btn delete js-delete-cat" title="Xoá"><i class="bi bi-trash3"></i></button>
+                    </td>
+                  </tr>
+                  <tr class="js-cat-row" data-slug="am-thuc" data-name="Ẩm thực">
+                    <td>2</td><td class="fw-semibold">Ẩm thực</td><td><code>am-thuc</code></td><td class="js-cat-count">2</td>
+                    <td>
+                      <button type="button" class="adm-action-btn edit js-edit-cat" title="Sửa"><i class="bi bi-pencil"></i></button>
+                      <button type="button" class="adm-action-btn delete js-delete-cat" title="Xoá"><i class="bi bi-trash3"></i></button>
+                    </td>
+                  </tr>
+                  <tr class="js-cat-row" data-slug="meo-du-lich" data-name="Mẹo du lịch">
+                    <td>3</td><td class="fw-semibold">Mẹo du lịch</td><td><code>meo-du-lich</code></td><td class="js-cat-count">2</td>
+                    <td>
+                      <button type="button" class="adm-action-btn edit js-edit-cat" title="Sửa"><i class="bi bi-pencil"></i></button>
+                      <button type="button" class="adm-action-btn delete js-delete-cat" title="Xoá"><i class="bi bi-trash3"></i></button>
+                    </td>
+                  </tr>
+                  <tr class="js-cat-row" data-slug="diem-den" data-name="Điểm đến">
+                    <td>4</td><td class="fw-semibold">Điểm đến</td><td><code>diem-den</code></td><td class="js-cat-count">2</td>
+                    <td>
+                      <button type="button" class="adm-action-btn edit js-edit-cat" title="Sửa"><i class="bi bi-pencil"></i></button>
+                      <button type="button" class="adm-action-btn delete js-delete-cat" title="Xoá"><i class="bi bi-trash3"></i></button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--  MODAL THEM / SUA BAI VIET  -->
+<div class="modal fade" id="postModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content" style="border-radius:14px;">
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold" id="postModalTitle">Viết bài mới</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row g-3">
+          <div class="col-12">
+            <label class="form-label" for="pmTitle">Tiêu đề bài viết <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="pmTitle" placeholder="Nhập tiêu đề...">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label" for="pmCategory">Danh mục <span class="text-danger">*</span></label>
+            <select class="form-select" id="pmCategory">
+              <option value="kinh-nghiem">Kinh nghiệm</option>
+              <option value="am-thuc">Ẩm thực</option>
+              <option value="meo-du-lich">Mẹo du lịch</option>
+              <option value="diem-den">Điểm đến</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label" for="pmAuthor">Tác giả</label>
+            <input type="text" class="form-control" id="pmAuthor" value="Admin">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label" for="pmPublished">Thời gian xuất bản</label>
+            <input type="datetime-local" class="form-control" id="pmPublished">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label" for="pmThumb">Ảnh thu nhỏ</label>
+            <input type="file" class="form-control" id="pmThumb" accept="image/*">
+          </div>
+          <div class="col-12">
+            <img id="pmThumbPreview" class="adm-thumb-preview d-none" alt="Xem trước ảnh">
+          </div>
+          <div class="col-12">
+            <label class="form-label" for="pmContent">Nội dung <span class="text-danger">*</span></label>
+            <textarea class="form-control" id="pmContent" rows="6" placeholder="Nội dung chi tiết bài viết..."></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-adm" data-bs-dismiss="modal">Huỷ</button>
+        <button type="button" class="btn btn-adm-primary" id="pmSaveBtn"><i class="bi bi-check-lg me-1"></i>Lưu bài viết</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--  MODAL THEM / SUA DANH MUC  -->
+<div class="modal fade" id="categoryModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border-radius:14px;">
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold" id="categoryModalTitle">Thêm danh mục</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label" for="cmName">Tên danh mục <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" id="cmName" placeholder="Ví dụ: Ẩm thực">
+        </div>
+        <div>
+          <label class="form-label" for="cmSlug">Slug (tự sinh từ tên)</label>
+          <input type="text" class="form-control" id="cmSlug" placeholder="am-thuc">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-adm" data-bs-dismiss="modal">Huỷ</button>
+        <button type="button" class="btn btn-adm-primary" id="cmSaveBtn"><i class="bi bi-check-lg me-1"></i>Lưu danh mục</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/admin-main.js"></script>
+<script src="js/admin-blog.js"></script>
+</body>
+</html>
